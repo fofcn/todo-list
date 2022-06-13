@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: auth
+  shardingsphere:
+    datasource:
+      names: master,slave0
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.2.13:3306/ddd-auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+        username: ddd_rw
+        password: epam2022.
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 600000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        useGlobalDataSourceStat: true
+        asyncInit: true
+      slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.2.13:3306/ddd-auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+        username: ddd_rw
+        password: epam2022.
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 600000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        useGlobalDataSourceStat: true
+        asyncInit: true
+    masterslave:
+      master-data-source-name: master
+      name: ms
+      slave-data-source-names: slave0
+    props:
+      sql:
+        show: true
+eureka:
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:40000/eureka/
+    registryFetchIntervalSeconds: 1
+    refresh:
+      enable: true
+
+
+security:
+  jwt:
+    public-key: classpath:public.txt
+    key-store: classpath:keystore.jks
+    key-store-password: mypass
+    key-pair-alias: servercert
+    key-pair-password: mypass
+  oauth2:
+    client:
+      registration:
+        gateway:
+          provider: auth
+          client-id: gateway
+          client-secret: secret
+      #          authorization-grant-type: password
+      #          scope: openid,profile,email,resource.read
+      provider:
+        auth:
+          authorization-uri: http://localhost:40002/auth/oauth/authorize
+          token-uri: http://localhost:40002/auth/oauth/token
+          user-info-uri: http://localhost:40002/auth/userinfo
+          user-name-attribute: sub
+          jwk-set-uri: http://localhost:40002/auth/token_keys
+
+
+oauth:
+  clientId: clientId
+  clientSecret: secret
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
