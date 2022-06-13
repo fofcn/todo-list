@@ -33,7 +33,7 @@
 token有过期时间，默认设置为两小时，如果token过期后后端会返回固定错误码，前端需要拦截错误码使用refresh token进行会话保持，如果会话保持失败，前端跳转到登录页面，如果会话保持成功，后端会返回和登录一样的字段，前端需要将本地存储中的登录信息进行替换。
 
 ### 2.1 登录 & 刷新token
-![token及token刷新接口](C:\Users\Ford_Ji\IdeaProjects\todo-list\docs\auth\token.png)
+![token及token刷新接口](./auth/token.png)
 
 ## 3. 接口定义
 ### 3.1 响应内容数据结构
