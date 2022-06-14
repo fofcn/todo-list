@@ -24,14 +24,19 @@
 #### 1.2.2 功能列表
 1. 创建任务
 2. 任务列表(不分页)
+任务列表采用创建时间倒叙+任务ID倒叙方式排序。
 3. 删除任务
-4. 更改任务状态（暂时不支持状态转为之前的状态，目前只支持start---创建任务--->TODO----完成---->Done这类转换）
+目前删除任务只支持单个任务删除。
+4. 更改任务状态（暂时不支持状态转为之前的状态，目前只支持start---创建任务--->TODO----完成---->Done这类转换）。
+5. 编辑任务
+任务编辑方式为原位置编辑。
 
 
 ## 2. 前后端交互流程
 登录采用OAuth2方式，后端接口在登录成功后会返回token、refresh token、token类型和token过期时间字段，前端需要存储这些字段，并将Token类型+空格+token放到Authentication协议头中请求需要授权访问的资源。
 token有过期时间，默认设置为两小时，如果token过期后后端会返回固定错误码，前端需要拦截错误码使用refresh token进行会话保持，如果会话保持失败，前端跳转到登录页面，如果会话保持成功，后端会返回和登录一样的字段，前端需要将本地存储中的登录信息进行替换。
 
+> token刷新也可以根据过期时间提前刷新。
 ### 2.1 登录 & 刷新token
 ![token及token刷新接口](./auth/token.png)
 
@@ -73,12 +78,352 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 }
 ```
 
-### 3.2 接口列表（不完整）
+### 3.2 接口列表
+1. 后端所有的接口均以"/api"为前缀;
+2. 需要授权接口都需要Authentication协议头，协议头组装方式： type + 1个空格 + accessToken。
 #### 3.2.1 登录
+**Path：** /api/auth/token
+**Method：** POST
+### REQUEST
+**Headers：**
+
+| name         | value            | required | desc |
+|--------------|------------------|----------|------|
+| Content-Type | application/json | YES      |      |
+
+**RequestBody**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| username   | string  | 用户名                  | 
+| password   | string  | 密码                   | 
+| rememberMe | boolean | 勾选记住我传入true,否则为false | 
+
+**Request Demo：**
+
+```json
+{
+  "username": "",
+  "password": "",
+  "rememberMe": false
+}
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------|
+| data                            | object  |                                 | 
+| &ensp;&ensp;&#124;─accessToken  | string  | access token                    | 
+| &ensp;&ensp;&#124;─refreshToken | string  | refresh token                   | 
+| &ensp;&ensp;&#124;─type         | string  | type of this token              | 
+| &ensp;&ensp;&#124;─expireIn     | integer | expire time, time unit: seconds | 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "data": {
+    "accessToken": "",
+    "refreshToken": "",
+    "type": "",
+    "expireIn": 0
+  },
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
 #### 3.2.2 注册
+**Path：** /api/usercenter/user
+**Method：** POST
+### REQUEST
+**Headers：**
+
+| name         | value            | required | desc |
+|--------------|------------------|----------|------|
+| Content-Type | application/json | YES      |      |
+
+**RequestBody**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| username   | string  | 用户名                  | 
+| password   | string  | 密码                   | 
+
+**Request Demo：**
+
+```json
+{
+  "username": "",
+  "password": ""
+}
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------| 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
 #### 3.2.3 登出
-#### 3.2.4 refresh token
+**Path：** /api/auth/logout
+
+**Method：** DELETE
+
+### REQUEST
+
+
+**Headers：**
+
+| name         | value                             | required | desc |
+|--------------|-----------------------------------|----------|------|
+| Content-Type | application/x-www-form-urlencoded | YES      |      |
+
+
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name       | type    | desc |
+|------------|---------|------|
+| success    | boolean |      | 
+| errCode    | string  |      | 
+| errMessage | string  |      | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
+
+#### 3.2.4 刷新token（保持会话）
+
 #### 3.3.1 创建任务
+**Path：** /api/task
+**Method：** POST
+### REQUEST
+**Headers：**
+
+| name         | value            | required | desc |
+|--------------|------------------|----------|------|
+| Content-Type | application/json | YES      |      |
+
+**RequestBody**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| title   | string  |             任务标题      | 
+| subTitle   | string  | 任务子标题                  | 
+
+**Request Demo：**
+
+```json
+{
+  "title": " 任务标题",
+  "subTitle": "任务子标题",
+}
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------| 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
 #### 3.3.2 任务列表
+
 #### 3.3.3 删除任务
+**Path：** /api/task/{taskId}
+**Method：** DELETE
+### REQUEST
+**Headers：**
+
+
+**PathVariable**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| taskId   | number  |             任务ID     | 
+
+**Request Demo：**
+
+```json
+/api/task/123412312321
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------| 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
 #### 3.3.4 更改任务状态
+**Path：** /api/task/{taskId}/status/{status}
+**Method：** PUT
+### REQUEST
+**Headers：**
+
+
+**PathVariable**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| taskId   | number  |             任务ID     | 
+| status   | number  |             任务状态, 状态值: 1:Todo(这个目前暂时没用), 2:Done     | 
+
+**Request Demo：**
+
+```json
+/api/task/123412312321/status/2
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------| 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
+#### 3.4.5 编辑任务
+
+**Path：** /api/task/{taskId}
+**Method：** PUT
+### REQUEST
+**Headers：**
+
+
+**PathVariable**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| taskId   | number  |             任务ID     | 
+
+**RequestBody**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| title   | string  |             任务标题     |
+| subTitle   | string  |             任务子标题     |
+
+**Request Demo：**
+
+```json
+/api/task/123412312321
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------| 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
