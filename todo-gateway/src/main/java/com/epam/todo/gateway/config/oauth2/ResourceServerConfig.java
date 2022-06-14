@@ -37,7 +37,7 @@ public class ResourceServerConfig {
     @Autowired
     private CustomReactiveAuthorizationManager customReactiveAuthorizationManager;
 
-    private String[] ignoreUrls = {"/api/auth/token", "/api/auth/refreshToken"};
+    private String[] ignoreUrls = {"/api/auth/token", "/api/auth/refreshToken", "/api/usercenter"};
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {

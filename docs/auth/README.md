@@ -166,7 +166,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL COMMENT 'username',
   `password` varchar(128) NOT NULL COMMENT 'password',
   `talent_id` bigint NOT NULL COMMENT 'talent id',
@@ -198,5 +198,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `oauth_client_details` VALUES ('clientId',NULL,'{bcrypt}$2a$10$vCXMWCn7fDZWOcLnIEhmK.74dvK1Eh8ae2WrWlhr2ETPLoxQctN4.','ROLE_USER','password,refresh_token,client_credentials',NULL,'ROLE_CLIENT',43200,2592000,NULL,NULL);
+ALTER TABLE `todo_auth`.`user` 
+ADD UNIQUE INDEX `uni_idx_username` (`username` ASC) VISIBLE;
+;
 
 ```

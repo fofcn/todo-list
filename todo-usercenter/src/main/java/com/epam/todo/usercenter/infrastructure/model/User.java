@@ -2,10 +2,7 @@ package com.epam.todo.usercenter.infrastructure.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,7 +10,8 @@ import java.time.LocalDateTime;
 @Entity
 public class User {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "username", nullable = false, length = 20, unique = true)

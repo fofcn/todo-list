@@ -1,5 +1,7 @@
 package com.epam.common.core.exception;
 
+import com.epam.common.core.ResponseCode;
+
 public class TodoException extends RuntimeException {
 
     private String errorCode;
@@ -10,6 +12,12 @@ public class TodoException extends RuntimeException {
         super(message);
         this.errorCode = errorCode;
         this.message = message;
+    }
+
+    public TodoException(ResponseCode responseCode) {
+        super(responseCode.getMsg());
+        this.errorCode = responseCode.getCode();
+        this.message = responseCode.getMsg();
     }
 
     public String getErrorCode() {
