@@ -11,7 +11,29 @@
     <artifactId>todo-usercenter</artifactId>
     <name>todo-usercenter</name>
     <packaging>jar</packaging>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.epam</groupId>
+            <artifactId>common-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.epam</groupId>
+            <artifactId>common-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.epam</groupId>
+            <artifactId>common-jpa</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+    </dependencies>
 </project>

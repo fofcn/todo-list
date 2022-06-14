@@ -195,7 +195,7 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 }
 ```
 #### 3.2.3 登出
-**Path：** /api/auth/logout
+**Path：** /api/auth/token
 
 **Method：** DELETE
 
@@ -236,6 +236,66 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 ```
 
 #### 3.2.4 刷新token（保持会话）
+
+**Path：** /api/auth/refreshToken
+**Method：** POST
+### REQUEST
+**Headers：**
+
+| name         | value            | required | desc |
+|--------------|------------------|----------|------|
+| Content-Type | application/json | YES      |      |
+
+**RequestBody**
+
+| name       | type    | desc                 |
+|------------|---------|----------------------|
+| refreshToken   | string  | 刷新令牌                  | 
+
+
+**Request Demo：**
+
+```json
+{
+  "refreshToken": "CanYouGuessMe?",
+}
+```
+### RESPONSE
+
+**Header：**
+
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
+
+**Body：**
+
+| name                            | type    | desc                            |
+|---------------------------------|---------|---------------------------------|
+| data                            | object  |                                 | 
+| &ensp;&ensp;&#124;─accessToken  | string  | access token                    | 
+| &ensp;&ensp;&#124;─refreshToken | string  | refresh token                   | 
+| &ensp;&ensp;&#124;─type         | string  | type of this token              | 
+| &ensp;&ensp;&#124;─expireIn     | integer | expire time, time unit: seconds | 
+| success                         | boolean |                                 | 
+| errCode                         | string  |                                 | 
+| errMessage                      | string  |                                 | 
+
+**Response Demo：**
+
+```json
+{
+  "data": {
+    "accessToken": "",
+    "refreshToken": "",
+    "type": "",
+    "expireIn": 0
+  },
+  "success": true,
+  "errCode": "",
+  "errMessage": ""
+}
+```
 
 #### 3.3.1 创建任务
 **Path：** /api/task

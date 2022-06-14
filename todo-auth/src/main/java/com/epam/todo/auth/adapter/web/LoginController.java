@@ -1,14 +1,16 @@
-package com.epam.todo.auth.web;
+package com.epam.todo.auth.adapter.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.epam.cloud.common.core.constant.SecurityConstants;
-import com.epam.cloud.common.core.dto.Response;
-import com.epam.cloud.common.core.dto.SingleResponse;
-import com.epam.cloud.common.web.util.JwtUtils;
-import com.epam.fans.auth.client.api.AuthService;
-import com.epam.fans.auth.client.dto.cmd.AuthLoginCmd;
-import com.epam.fans.auth.client.dto.data.AuthTokenDTO;
+import com.epam.common.core.constant.SecurityConstants;
+import com.epam.common.core.dto.Response;
+import com.epam.common.core.dto.SingleResponse;
+import com.epam.todo.auth.client.api.AuthService;
+import com.epam.todo.auth.client.dto.cmd.AuthLoginCmd;
+import com.epam.todo.auth.client.dto.cmd.AuthRefreshTokenCmd;
+import com.epam.todo.auth.client.dto.data.AuthRefreshTokenDTO;
+import com.epam.todo.auth.client.dto.data.AuthTokenDTO;
+import com.epam.todo.common.web.util.JwtUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +39,11 @@ public class LoginController {
     }
 
     @PostMapping("/refreshToken")
-    public SingleResponse<AuthTokenDTO> refreshToken(@RequestBody AuthLoginCmd cmd) {
-        JSONObject jsonObject = JwtUtils.getJwtPayload();
-        log.info("jwt payload: {}, username: ", JSON.toJSONString(jsonObject), jsonObject.getString("user_name"));
-        return SingleResponse.of(null);
+    public SingleResponse<AuthRefreshTokenDTO> refreshToken(@RequestBody AuthRefreshTokenCmd cmd) {
+        return authService.refreshToken(cmd);
     }
 
-    @DeleteMapping("/logout")
+    @DeleteMapping("/token")
     public Response logout() {
         JSONObject payload = JwtUtils.getJwtPayload();
         String jti = payload.getString(SecurityConstants.JWT_JTI); // JWT唯一标识

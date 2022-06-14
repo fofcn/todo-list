@@ -56,7 +56,7 @@ public class AuthorizationServerConfigJwt extends AuthorizationServerConfigurerA
     private SecurityProperties securityProperties;
 
     @Autowired
-    private com.epam.fans.auth.infrastructure.config.security.oauth2.UserOauthWebResponseExceptionTranslator userOauthWebResponseExceptionTranslator;
+    private UserOauthWebResponseExceptionTranslator userOauthWebResponseExceptionTranslator;
 
     @Autowired
     private UserDetailsService userDetailsService;

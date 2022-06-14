@@ -1,5 +1,5 @@
 server:
-  port: 40002
+  port: 40003
 
 spring:
   profiles:

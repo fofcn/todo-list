@@ -1,7 +1,7 @@
-package com.epam.todo.auth.web;
+package com.epam.todo.auth.adapter.web;
 
-import com.epam.cloud.common.core.dto.Response;
-import com.epam.cloud.common.core.dto.SingleResponse;
+import com.epam.common.core.dto.Response;
+import com.epam.common.core.dto.SingleResponse;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import lombok.AllArgsConstructor;

@@ -18,4 +18,9 @@ public class AuthRefreshTokenDTO {
      * type of this token
      */
     private String type;
+
+    /**
+     * expire time, time unit: seconds
+     */
+    private int expireIn;
 }

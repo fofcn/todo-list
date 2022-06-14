@@ -47,11 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/token").permitAll()
+                .authorizeRequests()
+                .antMatchers("/token").permitAll()
+                .antMatchers("/refreshToken").permitAll()
+                .antMatchers("/logout1").permitAll()
                 .anyRequest().authenticated()
-                .and().rememberMe().rememberMeServices(rememberMeServices())
-                .tokenValiditySeconds(10000000)
-                .userDetailsService(customUserDetailsService)
+//                .and().rememberMe().rememberMeServices(rememberMeServices())
+//                .tokenValiditySeconds(10000000)
+//                .userDetailsService(customUserDetailsService)
                 .and()
                 .csrf().disable();
     }
