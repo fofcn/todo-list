@@ -156,10 +156,11 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **RequestBody**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| username   | string  | 用户名                  | 
-| password   | string  | 密码                   | 
+| name       | type   | desc               |
+|------------|--------|--------------------|
+| username   | string | 用户名                | 
+| password   | string | 密码                 | 
+| talentId   | number | 租户ID，随便填写就行，是个数字就行 | 
 
 **Request Demo：**
 
