@@ -36,6 +36,7 @@ public class TaskListQueryCmdExec {
                 taskListDTO.setTitle(e.getTitle());
                 taskListDTO.setSubTitle(e.getSubTitle());
                 taskListDTO.setUserId(e.getUserId());
+                taskListDTO.setStatus(e.getStatus());
                 taskDtoList.add(taskListDTO);
             });
         }

@@ -368,17 +368,18 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **Body：**
 
-| name | type | desc |
-| ------------ | ------------ | ------------ |
-| data | array |  | 
-| &ensp;&ensp;&#124;─ | object |  | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─taskId | integer |  | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─title | string |  | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─subTitle | string |  | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─userId | integer |  | 
-| success | boolean |  | 
-| errCode | string |  | 
-| errMessage | string |  | 
+| name                                    | type | desc           |
+|-----------------------------------------| ------------ |----------------|
+| data                                    | array |                | 
+| &ensp;&ensp;&#124;─                     | object |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─taskId   | integer |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─title    | string |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─subTitle | string |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─userId   | integer |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─status   | integer | 1: TODO 2:DONE | 
+| success                                 | boolean |                | 
+| errCode                                 | string |                | 
+| errMessage                              | string |                | 
 
 **Response Demo：**
 
@@ -389,7 +390,9 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
       "taskId": 0,
       "title": "",
       "subTitle": "",
-      "userId": 0
+      "userId": 0,
+      "status": 1
+      
     }
   ],
   "success": false,

@@ -1,6 +1,7 @@
 package com.epam.todo.auth.app.auth.executor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.SingleResponse;
 import com.epam.todo.auth.client.dto.cmd.AuthLoginCmd;
 import com.epam.todo.auth.client.dto.data.AuthTokenDTO;
@@ -43,10 +44,15 @@ public class AuthLoginCmdExe {
         ResponseEntity<JSONObject> response = restTemplate.exchange("http://localhost:40002/oauth/token",
                 HttpMethod.POST, requestEntity, JSONObject.class);
         JSONObject result = response.getBody();
+        if (result == null) {
+            return SingleResponse.buildFailure(ResponseCode.AUTHORIZED_ERROR);
+        }
+
         AuthTokenDTO dto = new AuthTokenDTO();
         dto.setAccessToken(result.getString("access_token"));
         dto.setRefreshToken(result.getString("refresh_token"));
-        dto.setType(result.getString("token_type"));
+        dto.setType(result.getString("token_type").substring(0, 1).toUpperCase() +
+                result.getString("token_type").substring(1));
         dto.setExpireIn(result.getInteger("expires_in"));
         return SingleResponse.of(dto);
     }

@@ -10,6 +10,8 @@ import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class TaskDelCmdExe {
 
@@ -28,10 +30,10 @@ public class TaskDelCmdExe {
         }
 
         // 逻辑删除任务
-        Task update = new Task();
         task.setId(cmd.getTaskId());
         task.setDeleted(DeleteEnum.DELETED.getCode());
-        taskRepository.save(update);
+        task.setLastModifiedTime(LocalDateTime.now());
+        taskRepository.save(task);
         return Response.buildSuccess();
     }
 }

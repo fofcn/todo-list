@@ -11,6 +11,8 @@ public class TaskListDTO {
 
     private String subTitle;
 
+    private Integer status;
+
     private Long userId;
 
 }

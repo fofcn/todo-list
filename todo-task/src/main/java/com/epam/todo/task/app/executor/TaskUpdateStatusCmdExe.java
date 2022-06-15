@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Component
 public class TaskUpdateStatusCmdExe {
 
@@ -32,10 +34,10 @@ public class TaskUpdateStatusCmdExe {
             return Response.buildFailure(ResponseCode.TASK_STATE_TRANSITION_ERROR);
         }
 
-        Task update = new Task();
         task.setId(cmd.getTaskId());
         task.setStatus(cmd.getStatus());
-        taskRepository.save(update);
+        task.setLastModifiedTime(LocalDateTime.now());
+        taskRepository.save(task);
         return Response.buildSuccess();
     }
 }

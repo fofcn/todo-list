@@ -1,5 +1,7 @@
 package com.epam.common.core.dto;
 
+import com.epam.common.core.ResponseCode;
+
 public class SingleResponse<T> extends Response {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +28,10 @@ public class SingleResponse<T> extends Response {
         response.setErrCode(errCode);
         response.setErrMessage(errMessage);
         return response;
+    }
+
+    public static SingleResponse buildFailure(ResponseCode responseCode) {
+        return buildFailure(responseCode.getCode(), responseCode.getMsg());
     }
 
     public static <T> SingleResponse<T> of(T data) {

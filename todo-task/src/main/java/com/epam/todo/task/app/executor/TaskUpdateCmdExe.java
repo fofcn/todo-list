@@ -10,6 +10,8 @@ import com.epam.todo.task.infrastructure.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class TaskUpdateCmdExe {
 
@@ -27,12 +29,11 @@ public class TaskUpdateCmdExe {
             return Response.buildFailure(ResponseCode.TASK_OWNER_ERROR);
         }
 
-        // 逻辑删除任务
-        Task update = new Task();
         task.setId(cmd.getTaskId());
         task.setTitle(cmd.getTitle());
         task.setSubTitle(cmd.getSubTitle());
-        taskRepository.save(update);
+        task.setLastModifiedTime(LocalDateTime.now());
+        taskRepository.save(task);
         return Response.buildSuccess();
     }
 }

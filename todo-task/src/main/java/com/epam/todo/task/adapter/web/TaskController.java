@@ -43,9 +43,10 @@ public class TaskController {
         return taskService.delTask(cmd);
     }
 
-    @PutMapping
-    public Response updateTask(@RequestBody TaskUpdateCmd cmd) {
+    @PutMapping("/{taskId}")
+    public Response updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateCmd cmd) {
         cmd.setUserId(JwtUtils.getUserId());
+        cmd.setTaskId(taskId);
         return taskService.updateTask(cmd);
     }
 
