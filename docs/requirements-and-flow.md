@@ -80,7 +80,7 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 ### 3.2 接口列表
 1. 后端所有的接口均以"/api"为前缀;
-2. 需要授权接口都需要Authentication协议头，协议头组装方式： type + 1个空格 + accessToken。
+2. 需要授权接口都需要Authorization协议头，协议头组装方式： type + 1个空格 + accessToken。
 #### 3.2.1 登录
 **Path：** /api/auth/token
 **Method：** POST
@@ -348,6 +348,57 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 }
 ```
 #### 3.3.2 任务列表
+
+
+**Path：** list
+
+**Method：** GET
+
+### REQUEST
+
+
+
+### RESPONSE
+
+**Header：**
+
+| name  |  value  |  required  | desc  |
+| ------------ | ------------ | ------------ | ------------ |
+| content-type | application/json;charset=UTF-8 | NO |   |
+
+**Body：**
+
+| name | type | desc |
+| ------------ | ------------ | ------------ |
+| data | array |  | 
+| &ensp;&ensp;&#124;─ | object |  | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─taskId | integer |  | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─title | string |  | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─subTitle | string |  | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─userId | integer |  | 
+| success | boolean |  | 
+| errCode | string |  | 
+| errMessage | string |  | 
+
+**Response Demo：**
+
+```json
+{
+  "data": [
+    {
+      "taskId": 0,
+      "title": "",
+      "subTitle": "",
+      "userId": 0
+    }
+  ],
+  "success": false,
+  "errCode": "",
+  "errMessage": ""
+}
+```
+
+
 
 #### 3.3.3 删除任务
 **Path：** /api/task/{taskId}

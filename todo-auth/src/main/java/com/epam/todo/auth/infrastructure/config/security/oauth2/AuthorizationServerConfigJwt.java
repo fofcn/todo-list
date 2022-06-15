@@ -5,6 +5,7 @@ import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
 import com.epam.fans.auth.infrastructure.config.security.SecurityProperties;
 import com.epam.todo.auth.infrastructure.auth.UserDO;
+import com.epam.todo.auth.infrastructure.config.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -180,8 +181,8 @@ public class AuthorizationServerConfigJwt extends AuthorizationServerConfigurerA
         return (accessToken, authentication) -> {
             Map<String, Object> additionalInfo = new HashMap<>();
             Object principal = authentication.getUserAuthentication().getPrincipal();
-            if (principal instanceof UserDO) {
-                UserDO user = (UserDO) principal;
+            if (principal instanceof CustomUserDetails) {
+                CustomUserDetails user = (CustomUserDetails) principal;
                 additionalInfo.put("userId", user.getUserId());
                 additionalInfo.put("username", user.getUsername());
                 additionalInfo.put("talentId", user.getTalentId());

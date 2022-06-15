@@ -1,7 +1,5 @@
 package com.epam.todo.task.adapter.web;
 
-import com.alibaba.fastjson.JSONObject;
-import com.epam.common.core.constant.SecurityConstants;
 import com.epam.common.core.dto.MultiResponse;
 import com.epam.common.core.dto.Response;
 import com.epam.todo.common.web.util.JwtUtils;
@@ -24,16 +22,16 @@ public class TaskController {
 
     @PostMapping
     public Response createTask(@RequestBody TaskCreateCmd cmd) {
+        cmd.setUserId(JwtUtils.getUserId());
+        cmd.setTalentId(JwtUtils.getTalentId());
         return taskService.createTask(cmd);
     }
 
-    @GetMapping
+    @GetMapping("list")
     public MultiResponse<TaskListDTO> listTask() {
-        JSONObject payload = JwtUtils.getJwtPayload();
-        String jti = payload.getString(SecurityConstants.JWT_JTI); // JWT唯一标识
         TaskListQuery query = new TaskListQuery();
         query.setDeleted(DeleteEnum.NORMAL.getCode());
-        query.setUserId();
+        query.setUserId(JwtUtils.getUserId());
         return taskService.listTask(query);
     }
 
@@ -41,15 +39,14 @@ public class TaskController {
     public Response deleteTask(@PathVariable Long taskId) {
         TaskDelCmd cmd = new TaskDelCmd();
         cmd.setTaskId(taskId);
-        cmd.setUserId();
-
+        cmd.setUserId(JwtUtils.getUserId());
         return taskService.delTask(cmd);
     }
 
     @PutMapping
     public Response updateTask(@RequestBody TaskUpdateCmd cmd) {
-         cmd.setUserId();
-         return taskService.updateTask(cmd);
+        cmd.setUserId(JwtUtils.getUserId());
+        return taskService.updateTask(cmd);
     }
 
     @PutMapping("{taskId}/status/{status}")
@@ -57,7 +54,7 @@ public class TaskController {
         TaskUpdateStatusCmd cmd = new TaskUpdateStatusCmd();
         cmd.setStatus(status);
         cmd.setTaskId(taskId);
-        cmd.setUserId();
+        cmd.setUserId(JwtUtils.getUserId());
         return taskService.updateTaskStatus(cmd);
     }
 }

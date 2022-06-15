@@ -15,7 +15,9 @@ import com.epam.todo.task.client.dto.cmd.TaskUpdateStatusCmd;
 import com.epam.todo.task.client.dto.data.TaskListDTO;
 import com.epam.todo.task.client.dto.query.TaskListQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskListQueryCmdExec taskListQueryCmdExec;
@@ -34,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Response createTask(TaskCreateCmd cmd) {
-        return null;
+        return taskCreateCmdExe.execute(cmd);
     }
 
     @Override

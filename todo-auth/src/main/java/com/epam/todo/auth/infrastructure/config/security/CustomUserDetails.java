@@ -11,6 +11,10 @@ public class CustomUserDetails implements UserDetails {
 
     private String password;
 
+    private Long userId;
+
+    private Long talentId;
+
     private boolean accountNonExpired = true;
 
     private boolean accountNonLocked = true;
@@ -82,6 +86,22 @@ public class CustomUserDetails implements UserDetails {
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getTalentId() {
+        return talentId;
+    }
+
+    public void setTalentId(Long talentId) {
+        this.talentId = talentId;
     }
 }
 

@@ -11,4 +11,6 @@ public class TaskCreateCmd {
 
     private Long userId;
 
+    private Long talentId;
+
 }

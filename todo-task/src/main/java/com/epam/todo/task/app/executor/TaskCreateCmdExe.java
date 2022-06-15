@@ -3,6 +3,7 @@ package com.epam.todo.task.app.executor;
 import com.epam.common.core.dto.Response;
 import com.epam.todo.task.client.dto.cmd.TaskCreateCmd;
 import com.epam.todo.task.infrastructure.model.DeleteEnum;
+import com.epam.todo.task.infrastructure.model.StateEnum;
 import com.epam.todo.task.infrastructure.model.Task;
 import com.epam.todo.task.infrastructure.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class TaskCreateCmdExe {
         task.setCreateTime(LocalDateTime.now());
         task.setLastModifiedTime(LocalDateTime.now());
         task.setDeleted(DeleteEnum.NORMAL.getCode());
+        task.setStatus(StateEnum.TODO.getCode());
         taskRepository.save(task);
         return Response.buildSuccess();
     }
