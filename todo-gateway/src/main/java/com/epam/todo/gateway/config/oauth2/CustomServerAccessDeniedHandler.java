@@ -1,5 +1,8 @@
 package com.epam.todo.gateway.config.oauth2;
 
+import com.alibaba.fastjson.JSON;
+import com.epam.common.core.ResponseCode;
+import com.epam.common.core.dto.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -27,8 +30,8 @@ public class CustomServerAccessDeniedHandler implements ServerAccessDeniedHandle
                 .flatMap(principal -> {
                             ServerHttpResponse response = exchange.getResponse();
                             response.setStatusCode(HttpStatus.FORBIDDEN);
-                            String body = "{\"code \": 403, \" MSG \": \" you do not have permission to access \"}";
-                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+                            Response authErrResp = Response.buildFailure(ResponseCode.AUTHORIZED_ERROR);
+                        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(authErrResp).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer))
                 .doOnError(error -> DataBufferUtils.release(buffer));
     });
