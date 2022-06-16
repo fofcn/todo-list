@@ -76,7 +76,7 @@ eureka:
     leaseRenewalIntervalInSeconds: 15
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:40000/eureka/
+      defaultZone: http://172.19.143.30:40000/eureka/
     registryFetchIntervalSeconds: 1
     refresh:
       enable: true
