@@ -22,7 +22,7 @@
 		<module>todo-eureka</module>
 		<module>todo-dict</module>
 		<module>todo-gateway</module>
-		<module>todo-guid</module>
+<!--		<module>todo-guid</module>-->
 		<module>todo-usercenter</module>
 		<module>todo-task</module>
 	</modules>

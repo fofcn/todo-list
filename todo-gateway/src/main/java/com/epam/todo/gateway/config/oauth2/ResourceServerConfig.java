@@ -2,9 +2,11 @@ package com.epam.todo.gateway.config.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -21,6 +23,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -33,6 +37,9 @@ import java.util.Base64;
 @Configuration
 @EnableWebFluxSecurity
 public class ResourceServerConfig {
+
+    @Value("${todo.gateway.publicKey}")
+    private String publicKeyPath;
 
     @Autowired
     private CustomReactiveAuthorizationManager customReactiveAuthorizationManager;
@@ -91,11 +98,26 @@ public class ResourceServerConfig {
 
     @Bean
     public RSAPublicKey rsaPublicKey() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
-        Resource resource = new DefaultResourceLoader().getResource("/public.txt");
-        String publicKeyStr = String.join("", Files.readAllLines(resource.getFile().toPath()));
-        publicKeyStr = publicKeyStr.replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");
-        byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyStr);
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
+        Resource resource = new ClassPathResource(publicKeyPath);
+        InputStream is = resource.getInputStream();
+        if (is == null) {
+            log.error("invalid public key file, empty content");
+            return null;
+        }
+        int contentLen = is.available();
+        if (contentLen <= 0) {
+            log.error("invalid public key file, empty content");
+            return null;
+        }
+
+        byte[] content = new byte[contentLen];
+        is.read(content);
+        String publicKeyData = new String(content, StandardCharsets.UTF_8);
+        publicKeyData = publicKeyData.replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")
+                .replace("\r\n", "");
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec((Base64.getDecoder().decode(publicKeyData)));
+
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyFactory.generatePublic(keySpec);
         return rsaPublicKey;

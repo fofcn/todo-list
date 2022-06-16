@@ -41,3 +41,6 @@ eureka:
       defaultZone: http://127.0.0.1:40000/eureka/
     registry-fetch-interval-seconds: 10
 
+todo:
+  gateway:
+    publicKey: /public.txt

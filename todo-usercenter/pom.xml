@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>todo-usercenter</artifactId>
     <name>todo-usercenter</name>
-    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -74,4 +73,14 @@
             <version>2.6</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
