@@ -249,9 +249,9 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **RequestBody**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| refreshToken   | string  | 刷新令牌                  | 
+| name         | type   | desc |
+|--------------|--------|------|
+| refreshToken | string | 刷新令牌 | 
 
 
 **Request Demo：**
@@ -310,10 +310,10 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **RequestBody**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| title   | string  |             任务标题      | 
-| subTitle   | string  | 任务子标题                  | 
+| name     | type   | desc  |
+|----------|--------|-------|
+| title    | string | 任务标题  | 
+| subTitle | string | 任务子标题 | 
 
 **Request Demo：**
 
@@ -363,24 +363,24 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **Header：**
 
-| name  |  value  |  required  | desc  |
-| ------------ | ------------ | ------------ | ------------ |
-| content-type | application/json;charset=UTF-8 | NO |   |
+| name         | value                          | required | desc |
+|--------------|--------------------------------|----------|------|
+| content-type | application/json;charset=UTF-8 | NO       |      |
 
 **Body：**
 
-| name                                    | type | desc           |
-|-----------------------------------------| ------------ |----------------|
-| data                                    | array |                | 
-| &ensp;&ensp;&#124;─                     | object |                | 
+| name                                    | type    | desc           |
+|-----------------------------------------|---------|----------------|
+| data                                    | array   |                | 
+| &ensp;&ensp;&#124;─                     | object  |                | 
 | &ensp;&ensp;&ensp;&ensp;&#124;─taskId   | integer |                | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─title    | string |                | 
-| &ensp;&ensp;&ensp;&ensp;&#124;─subTitle | string |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─title    | string  |                | 
+| &ensp;&ensp;&ensp;&ensp;&#124;─subTitle | string  |                | 
 | &ensp;&ensp;&ensp;&ensp;&#124;─userId   | integer |                | 
 | &ensp;&ensp;&ensp;&ensp;&#124;─status   | integer | 1: TODO 2:DONE | 
 | success                                 | boolean |                | 
-| errCode                                 | string |                | 
-| errMessage                              | string |                | 
+| errCode                                 | string  |                | 
+| errMessage                              | string  |                | 
 
 **Response Demo：**
 
@@ -413,9 +413,9 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **PathVariable**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| taskId   | number  |             任务ID     | 
+| name   | type   | desc |
+|--------|--------|------|
+| taskId | number | 任务ID | 
 
 **Request Demo：**
 
@@ -456,10 +456,10 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **PathVariable**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| taskId   | number  |             任务ID     | 
-| status   | number  |             任务状态, 状态值: 1:Todo(这个目前暂时没用), 2:Done     | 
+| name   | type   | desc                                |
+|--------|--------|-------------------------------------|
+| taskId | number | 任务ID                                | 
+| status | number | 任务状态, 状态值: 1:Todo(这个目前暂时没用), 2:Done | 
 
 **Request Demo：**
 
@@ -501,16 +501,16 @@ token有过期时间，默认设置为两小时，如果token过期后后端会�
 
 **PathVariable**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| taskId   | number  |             任务ID     | 
+| name   | type   | desc |
+|--------|--------|------|
+| taskId | number | 任务ID | 
 
 **RequestBody**
 
-| name       | type    | desc                 |
-|------------|---------|----------------------|
-| title   | string  |             任务标题     |
-| subTitle   | string  |             任务子标题     |
+| name     | type   | desc  |
+|----------|--------|-------|
+| title    | string | 任务标题  |
+| subTitle | string | 任务子标题 |
 
 **Request Demo：**
 
