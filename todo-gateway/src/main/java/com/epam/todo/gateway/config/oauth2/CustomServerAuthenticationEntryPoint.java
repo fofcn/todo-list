@@ -1,5 +1,8 @@
 package com.epam.todo.gateway.config.oauth2;
 
+import com.alibaba.fastjson.JSON;
+import com.epam.common.core.ResponseCode;
+import com.epam.common.core.dto.Response;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpStatus;
@@ -16,9 +19,9 @@ public class CustomServerAuthenticationEntryPoint implements ServerAuthenticatio
 
         return Mono.defer(() -> Mono.just(exchange.getResponse()))
                 .flatMap(response -> {
-                            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                            String body = "{\" code \": 401, \" MSG \": \" token is illegal or expired \"}";
-                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+                            response.setStatusCode(HttpStatus.OK);
+                    Response errResp = Response.buildFailure(ResponseCode.AUTHORIZED_ERROR);
+                        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(errResp).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer))
                 .doOnError(error -> DataBufferUtils.release(buffer));
     });

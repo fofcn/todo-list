@@ -1,6 +1,7 @@
 package com.epam.todo.auth.infrastructure.config.security.oauth2;
 
 import com.alibaba.fastjson.JSON;
+import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,36 +26,24 @@ public class CustomAuthExceptionHandler implements AuthenticationEntryPoint, Acc
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Throwable cause = authException.getCause();
         response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.addHeader("Access-Control-Allow-Credentials","true");
-        response.addHeader("Cache-Control", "no-cache");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.addHeader("Access-Control-Max-Age", "1800");
+        response.setStatus(HttpServletResponse.SC_OK);
         if (cause instanceof InvalidTokenException) {
             logger.error("InvalidTokenException : {}", cause.getMessage());
             //Token无效
-            response.getWriter().write(JSON.toJSONString(Response.buildFailure("401", "invalid token")));
+            response.getWriter().write(JSON.toJSONString(Response.buildFailure(ResponseCode.AUTHORIZED_ERROR)));
         } else {
             logger.error("AuthenticationException : NoAuthentication", authException);
             //资源未授权
-            response.getWriter().write(JSON.toJSONString(Response.buildFailure("401", "no authentication")));
+            response.getWriter().write(JSON.toJSONString(Response.buildFailure(ResponseCode.AUTHORIZED_ERROR)));
         }
     }
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.addHeader("Access-Control-Allow-Credentials","true");
-        response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.addHeader("Cache-Control", "no-cache");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.addHeader("Access-Control-Max-Age", "1800");
+        response.setStatus(HttpServletResponse.SC_OK);
         //访问资源的用户权限不足
         logger.error("AccessDeniedException : {}", accessDeniedException.getMessage());
-        response.getWriter().write(JSON.toJSONString(Response.buildFailure("401", "Access Denied")));
+        response.getWriter().write(JSON.toJSONString(Response.buildFailure(ResponseCode.AUTHORIZED_ERROR)));
     }
 }
