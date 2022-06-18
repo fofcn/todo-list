@@ -2,7 +2,18 @@ package com.epam.common.core;
 
 public enum ResponseCode {
 
-    SUCCESS("00000", "一切ok"),
+    SUCCESS("00000", "ok"),
+    FAILURE("00001", "failure"),
+    UNKNOWN_ERROR("00002", "unknown error"),
+    HTTP_METHOD_NOT_SUPPORT("00003", "request method not support"),
+
+    BAD_SQL_GRAMMAR("00004", "bad sql grammar"),
+
+    DATA_INTEGRITY("00005", "data integrity violation"),
+
+    HTTP_NOT_FOUND("00006", "data integrity violation"),
+
+    PARAMETER_ERROR("00007", ""),
 
     USER_ERROR("A0001", "用户端错误"),
     USER_LOGIN_ERROR("A0200", "用户登录异常"),

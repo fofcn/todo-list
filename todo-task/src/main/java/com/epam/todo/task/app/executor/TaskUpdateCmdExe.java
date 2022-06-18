@@ -2,11 +2,10 @@ package com.epam.todo.task.app.executor;
 
 import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
-import com.epam.todo.task.client.dto.cmd.TaskCreateCmd;
 import com.epam.todo.task.client.dto.cmd.TaskUpdateCmd;
-import com.epam.todo.task.infrastructure.model.DeleteEnum;
 import com.epam.todo.task.infrastructure.model.Task;
 import com.epam.todo.task.infrastructure.repository.TaskRepository;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +29,14 @@ public class TaskUpdateCmdExe {
         }
 
         task.setId(cmd.getTaskId());
-        task.setTitle(cmd.getTitle());
-        task.setSubTitle(cmd.getSubTitle());
+        if (StringUtils.isNotEmpty(cmd.getTitle())) {
+            task.setTitle(cmd.getTitle());
+        }
+
+        if (StringUtils.isNotEmpty(cmd.getTitle())) {
+            task.setSubTitle(cmd.getSubTitle());
+        }
+
         task.setLastModifiedTime(LocalDateTime.now());
         taskRepository.save(task);
         return Response.buildSuccess();

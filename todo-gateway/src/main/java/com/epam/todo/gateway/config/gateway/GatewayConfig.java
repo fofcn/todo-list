@@ -1,18 +1,22 @@
 package com.epam.todo.gateway.config.gateway;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.WebFilter;
 
 @Slf4j
 @Configuration
 public class GatewayConfig {
+
+    @Autowired
+    private ExtensionErrorAttributes extensionErrorAttributes;
 
     @Bean
     public CustomGlobalFilter customGlobalFilter(RouteLocatorBuilder builder) {
@@ -36,4 +40,9 @@ public class GatewayConfig {
             return chain.filter(exchange);
         };
     }
+
+//    @Bean
+//    public ErrorAttributes errorAttributes() {
+//        return extensionErrorAttributes;
+//    }
 }

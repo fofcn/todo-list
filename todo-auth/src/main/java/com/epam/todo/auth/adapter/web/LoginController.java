@@ -1,6 +1,5 @@
 package com.epam.todo.auth.adapter.web;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.epam.common.core.constant.SecurityConstants;
 import com.epam.common.core.dto.Response;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -34,12 +34,12 @@ public class LoginController {
     private RedisTemplate redisTemplate;
 
     @PostMapping("/token")
-    public SingleResponse<AuthTokenDTO> token(@RequestBody AuthLoginCmd cmd) {
+    public SingleResponse<AuthTokenDTO> token(@RequestBody @Valid AuthLoginCmd cmd) {
         return authService.token(cmd);
     }
 
     @PostMapping("/refreshToken")
-    public SingleResponse<AuthRefreshTokenDTO> refreshToken(@RequestBody AuthRefreshTokenCmd cmd) {
+    public SingleResponse<AuthRefreshTokenDTO> refreshToken(@RequestBody @Valid AuthRefreshTokenCmd cmd) {
         return authService.refreshToken(cmd);
     }
 
