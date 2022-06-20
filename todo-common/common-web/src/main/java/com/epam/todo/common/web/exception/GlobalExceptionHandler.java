@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(TodoException.class)
     public Response handleException(TodoException e) {
-        return Response.buildFailure("", e.getMessage());
+        return Response.buildFailure(e.getErrorCode(), e.getMessage());
     }
 
     @ResponseBody

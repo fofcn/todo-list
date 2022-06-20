@@ -33,7 +33,9 @@ public enum ResponseCode {
 
     TASK_OWNER_ERROR("A1001", "请删除自己任务"),
     TASK_NOT_EXISTING("A1002", "该任务不存在"),
-    TASK_STATE_TRANSITION_ERROR("A1003", "该任务不存在")
+    TASK_STATE_TRANSITION_ERROR("A1003", "该任务不存在"),
+
+    USER_EXISTS("A2001", "User existing"),
     ;
 
     private String code;

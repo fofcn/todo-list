@@ -1,6 +1,8 @@
 package com.epam.todo.usercenter.app.executor;
 
+import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
+import com.epam.common.core.exception.TodoException;
 import com.epam.todo.usercenter.client.dto.cmd.UserCreateCmd;
 import com.epam.todo.usercenter.infrastructure.model.User;
 import com.epam.todo.usercenter.infrastructure.repository.UserRepository;
@@ -17,6 +19,11 @@ public class UserCreateCmdExe {
     private UserRepository userRepository;
 
     public Response execute(UserCreateCmd cmd) {
+        User exists = userRepository.findByUsername(cmd.getUsername());
+        if (exists != null) {
+            // 这里可以用assert
+            throw new TodoException(ResponseCode.USER_EXISTS);
+        }
         // cmd 转 model
         User user = new User();
         user.setCreateTime(LocalDateTime.now());
