@@ -23,13 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("username: <{}>", username);
 
         User user = userRepository.findByUsername(username);
-//        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//        CustomUserDetails userDetails = new CustomUserDetails();
-//        userDetails.setUsername("user");
-//        userDetails.setPassword(passwordEncoder.encode("password"));
-//        if (username.equals(userDetails.getUsername())) {
-//            return userDetails;
-//        }
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
 
         CustomUserDetails userDetails = new CustomUserDetails();
         userDetails.setUsername(user.getUsername());

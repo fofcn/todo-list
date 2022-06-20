@@ -20,7 +20,7 @@ public class CustomServerAuthenticationEntryPoint implements ServerAuthenticatio
         return Mono.defer(() -> Mono.just(exchange.getResponse()))
                 .flatMap(response -> {
                             response.setStatusCode(HttpStatus.OK);
-                    Response errResp = Response.buildFailure(ResponseCode.AUTHORIZED_ERROR);
+                    Response errResp = Response.buildFailure(ResponseCode.TOKEN_INVALID_OR_EXPIRED);
                         DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(errResp).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer))
                 .doOnError(error -> DataBufferUtils.release(buffer));

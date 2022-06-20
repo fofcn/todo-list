@@ -29,7 +29,7 @@ public class CustomServerAccessDeniedHandler implements ServerAccessDeniedHandle
                         principal. getName(), request. getURI()))
                 .flatMap(principal -> {
                             ServerHttpResponse response = exchange.getResponse();
-                            response.setStatusCode(HttpStatus.FORBIDDEN);
+                            response.setStatusCode(HttpStatus.OK);
                             Response authErrResp = Response.buildFailure(ResponseCode.TOKEN_INVALID_OR_EXPIRED);
                         DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(authErrResp).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer))

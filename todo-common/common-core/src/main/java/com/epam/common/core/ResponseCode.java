@@ -28,6 +28,8 @@ public enum ResponseCode {
     TOKEN_INVALID_OR_EXPIRED("A0230", "token无效或已过期"),
     TOKEN_ACCESS_FORBIDDEN("A0231", "token已被禁止访问"),
 
+    TOKEN_REFRESH_INVALID_OR_EXPIRED("A0232", "refresh token无效或已过期"),
+
     AUTHORIZED_ERROR("A0300", "访问权限异常"),
     ACCESS_UNAUTHORIZED("A0301", "访问未授权"),
 

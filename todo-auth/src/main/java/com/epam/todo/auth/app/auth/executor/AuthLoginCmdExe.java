@@ -6,11 +6,9 @@ import com.epam.common.core.dto.SingleResponse;
 import com.epam.todo.auth.client.dto.cmd.AuthLoginCmd;
 import com.epam.todo.auth.client.dto.data.AuthTokenDTO;
 import com.epam.todo.auth.infrastructure.config.AuthConfig;
+import com.epam.todo.auth.infrastructure.exception.CustomRestResponseErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -40,12 +38,16 @@ public class AuthLoginCmdExe {
         parameters.add("refresh_token", "refresh_token");
         parameters.add("remember-me", "1");
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, headers);
-//        restTemplate.setErrorHandler(new CustomRestResponseErrorHandler());
+        restTemplate.setErrorHandler(new CustomRestResponseErrorHandler());
         ResponseEntity<JSONObject> response = restTemplate.exchange("http://localhost:40002/oauth/token",
                 HttpMethod.POST, requestEntity, JSONObject.class);
+        if (!HttpStatus.OK.equals(response.getStatusCode())) {
+            return SingleResponse.buildFailure(ResponseCode.USERNAME_OR_PASSWORD_ERROR);
+        }
+
         JSONObject result = response.getBody();
         if (result == null) {
-            return SingleResponse.buildFailure(ResponseCode.AUTHORIZED_ERROR);
+            return SingleResponse.buildFailure(ResponseCode.USERNAME_OR_PASSWORD_ERROR);
         }
 
         AuthTokenDTO dto = new AuthTokenDTO();

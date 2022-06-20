@@ -1,4 +1,4 @@
-package com.epam.common.jpa;
+package com.epam.todo.common.jpa;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
