@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -17,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public Response createUser(@RequestBody UserCreateCmd cmd) {
+    public Response createUser(@RequestBody @Valid UserCreateCmd cmd) {
         return userService.createUser(cmd);
     }
 }

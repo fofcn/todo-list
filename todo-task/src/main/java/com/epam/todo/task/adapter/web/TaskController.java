@@ -14,6 +14,8 @@ import com.epam.todo.task.infrastructure.model.DeleteEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class TaskController {
 
@@ -21,7 +23,7 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping
-    public Response createTask(@RequestBody TaskCreateCmd cmd) {
+    public Response createTask(@RequestBody @Valid TaskCreateCmd cmd) {
         cmd.setUserId(JwtUtils.getUserId());
         cmd.setTalentId(JwtUtils.getTalentId());
         return taskService.createTask(cmd);

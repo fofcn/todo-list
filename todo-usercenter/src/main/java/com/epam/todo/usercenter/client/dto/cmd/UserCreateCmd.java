@@ -20,10 +20,9 @@ public class UserCreateCmd {
     @NotNull(message = "password can not be null")
     @NotEmpty(message = "password can not be empty")
     @Length(min = 8, max = 20, message = "The length of password is too short or too long")
-    @Pattern(regexp = "(?=.\\d)(?=.[a-z])(?=.[A-Z])((?=.\\W)|(?=.*_))^[^ ]+$", message = "password does not follow the password rules ")
+    @Pattern(regexp = "[A-z\\d]{8,20}", message = "password does not follow the password rules ")
     private String password;
 
     @NotNull(message = "talentId can not be null")
-    @NotEmpty(message = "talentId can not be empty")
     private Long talentId;
 }
