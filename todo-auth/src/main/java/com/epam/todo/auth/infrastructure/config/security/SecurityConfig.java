@@ -33,14 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
-//        RememberMeAuthenticationFilter
-//        TokenBasedRememberMeServices
-//        UsernamePasswordAuthenticationFiler
-//        AbstractAuthenticationProcessingFilter
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-        // 如果token表不存在，使用下面语句可以初始化 persistent_logins（ddl在db目录下） 表；若存在，请注释掉这条语句，否则会报错。
-        //tokenRepository.setCreateTableOnStartup(true);
         return tokenRepository;
     }
 
@@ -52,9 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/refreshToken").permitAll()
                 .antMatchers("/logout1").permitAll()
                 .anyRequest().authenticated()
-//                .and().rememberMe().rememberMeServices(rememberMeServices())
-//                .tokenValiditySeconds(10000000)
-//                .userDetailsService(customUserDetailsService)
                 .and()
                 .csrf().disable();
     }
