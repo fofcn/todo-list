@@ -23,7 +23,7 @@ public class JwtUtils {
             try {
                 jsonObject = JSON.parseObject(URLDecoder.decode(payload, StandardCharsets.UTF_8.name()));
             } catch (UnsupportedEncodingException e) {
-                throw new TodoException("", e.getMessage());
+                throw new TodoException(ResponseCode.AUTHORIZED_ERROR);
             }
         }
         return jsonObject;

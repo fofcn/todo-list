@@ -29,6 +29,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(TodoException.class)
     public Response handleException(TodoException e) {
+        log.error("todo exception, msg: {}", e.getMessage());
         return Response.buildFailure(e.getErrorCode(), e.getMessage());
     }
 

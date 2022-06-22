@@ -93,6 +93,7 @@ public class AuthorizationServerConfigJwt extends AuthorizationServerConfigurerA
 
         // 自定义 /oauth/token 异常处理
         endpoints.exceptionTranslator(userOauthWebResponseExceptionTranslator);
+        endpoints.setClientDetailsService(clientDetails());
 
         // Token增强
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
@@ -131,10 +132,14 @@ public class AuthorizationServerConfigJwt extends AuthorizationServerConfigurerA
         tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
 
         DefaultTokenServices tokenServices = new DefaultTokenServices();
+        // set client details service
+        // fixed token expire time
+        tokenServices.setClientDetailsService(clientDetails());
         tokenServices.setTokenStore(endpoints.getTokenStore());
         tokenServices.setSupportRefreshToken(true);
         tokenServices.setTokenEnhancer(tokenEnhancerChain);
-    ;    return tokenServices;
+
+        return tokenServices;
     }
 
     public JwtAccessTokenConverter jwtAccessTokenConverter() throws IOException {

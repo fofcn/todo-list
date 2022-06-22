@@ -40,7 +40,7 @@ public class GatewaySecurityFilter implements GlobalFilter, Ordered {
 
         // 解析JWT获取jti，以jti为key判断redis的黑名单列表是否存在，存在则拦截访问
         token = StringUtils.replace(token, SecurityConstants.JWT_PREFIX, Strings.EMPTY);
-        String payload =String.valueOf(JWSObject.parse(token).getPayload());
+        String payload = String.valueOf(JWSObject.parse(token).getPayload());
         JSONObject jsonObject = JSON.parseObject(payload);
         String jti = jsonObject.getString(SecurityConstants.JWT_JTI);
         log.info("jti: {}", jti);
