@@ -3,6 +3,7 @@ package com.epam.todo.gateway.config.oauth2;
 import com.alibaba.fastjson.JSON;
 import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
+import com.epam.todo.gateway.config.util.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -28,12 +29,8 @@ public class CustomServerAccessDeniedHandler implements ServerAccessDeniedHandle
                 .doOnNext (principal -> log.info("user: [{}] does not have permission to access: [{}]",
                         principal. getName(), request. getURI()))
                 .flatMap(principal -> {
-                            ServerHttpResponse response = exchange.getResponse();
-                            response.setStatusCode(HttpStatus.OK);
-                            Response authErrResp = Response.buildFailure(ResponseCode.TOKEN_INVALID_OR_EXPIRED);
-                        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(authErrResp).getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Mono.just(buffer))
-                .doOnError(error -> DataBufferUtils.release(buffer));
-    });
+                    ServerHttpResponse response = exchange.getResponse();
+                    return ResponseUtils.writeErrorInfo(response, ResponseCode.TOKEN_INVALID_OR_EXPIRED);
+                });
 }
 }
