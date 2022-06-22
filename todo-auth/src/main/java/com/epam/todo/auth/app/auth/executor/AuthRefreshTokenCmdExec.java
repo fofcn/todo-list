@@ -54,7 +54,8 @@ public class AuthRefreshTokenCmdExec {
         AuthRefreshTokenDTO dto = new AuthRefreshTokenDTO();
         dto.setAccessToken(result.getString("access_token"));
         dto.setRefreshToken(result.getString("refresh_token"));
-        dto.setType(result.getString("token_type"));
+        dto.setType(result.getString("token_type").substring(0, 1).toUpperCase() +
+                result.getString("token_type").substring(1));
         dto.setExpireIn(result.getInteger("expires_in"));
         return SingleResponse.of(dto);
     }

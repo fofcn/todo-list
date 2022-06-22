@@ -142,6 +142,7 @@ public class AuthorizationServerConfigJwt extends AuthorizationServerConfigurerA
 
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setKeyPair(keyPair);
+        // fixed refresh token problem: https://stackoverflow.com/questions/54279755/getprincipal-method-returning-username-instead-of-userdetails
         ((DefaultAccessTokenConverter)jwtAccessTokenConverter.getAccessTokenConverter()).setUserTokenConverter(userAuthenticationConverter());
         return jwtAccessTokenConverter;
     }
