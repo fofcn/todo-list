@@ -211,3 +211,91 @@ docker-compose -f /app/compose/docker-compose.yml up -d auth
 docker-compose -f /app/compose/docker-compose.yml up -d usercenter
 docker-compose -f /app/compose/docker-compose.yml up -d task
 ```
+
+11. 配置nginx
+nginx.conf配置：
+```
+
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    log_format  combinedio  '$remote_addr - $remote_user [$time_local] '
+                            '"$request" $status  '
+                            '"$http_referer" "$http_user_agent" $request_length $request_time $upstream_response_time $server_addr';
+     sendfile        on;
+    tcp_nodelay     on;
+    server_tokens   off;
+    keepalive_timeout  65;
+    gzip             on;
+    gzip_min_length  1000;
+    gzip_proxied     expired no-cache no-store private auth;
+    gzip_buffers     4 8k;
+    gzip_types       text/plain application/x-javascript text/css application/xml text/javascript;
+    gzip_disable     "MSIE [1-6]\.";
+
+
+    fastcgi_send_timeout      600s;
+    proxy_connect_timeout     600s;
+    proxy_read_timeout        600s;
+    proxy_send_timeout        600s;
+    client_body_buffer_size   20M;
+    client_max_body_size      1024M;      #设置允许客户端请求的最大的单个文件字节数
+    client_header_buffer_size 20M;      #指定来自客户端请求头的headebuffer大小
+    include  conf.d/*.conf;
+}
+
+```
+
+todo list配置：todo.epam.conf
+```
+upstream todo.epam.com {
+    ip_hash;
+    server 172.19.143.30:40001 weight=5 max_fails=3 fail_timeout=30;
+}
+
+server {
+    listen 80;
+    server_name 47.108.62.173;
+    #root         /app/webroot;
+    index        index.html index.php index.htm;
+    access_log   /app/applog/nginx/logs/todo.epam.access.log  main;
+    error_log    /app/applog/nginx/logs/todo.epam.error.log;
+    # added by Chris Yang for frontend
+    location /chris_yang {
+        alias /app/webroot/chris_yang;
+        try_files $uri $uri/ /chris_yang/index.html;
+        autoindex on;
+    }
+    # added by Chris Yang for frontend
+    location /vicky_he {
+        alias /app/webroot/vicky_he;
+        try_files $uri $uri/ /vicky_he/index.html;
+        autoindex on;
+        index index.html;
+    }
+    location /api {
+        proxy_pass       http://todo.epam.com;
+        proxy_set_header Host  $host:$server_port;
+        proxy_set_header X-Real-IP   $remote_addr;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_hide_header X-Powered-By;
+        proxy_hide_header Vary;
+        proxy_redirect off;
+    }
+}
+
+```
