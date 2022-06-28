@@ -8,7 +8,7 @@ sudo apt install selinux-utils
 sudo setenforce 0
 
 sudo vim /etc/selinux/conifg
-
+SELINUX=disabled
 # 配置linux iptable 路由转发
 sudo iptables -P FORWARD ACCEPT
 
@@ -17,6 +17,16 @@ sudo vim /etc/rc.local
 
 sudo sed -i 's/.*swap.*/#&/' /etc/fstab
 
+# 设置网络
+sudo tee /etc/sysctl.d/k8s.conf <<-'EOF'
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+modprobe br_netfilter
+查看 ipv4 与 v6 配置是否生效
+sysctl --system
 # 安装工具
 sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
 
