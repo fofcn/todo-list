@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: usercenter
-  namespace: default
+  namespace: todo
 spec:
   selector:
     matchLabels:

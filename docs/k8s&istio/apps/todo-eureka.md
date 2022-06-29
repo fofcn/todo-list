@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eureka
-  namespace: default
+  namespace: todo
 spec:
   selector:
     matchLabels:
