@@ -1,0 +1,7 @@
+# reference books/links
+1. [mkuthan/example-spring](https://github.com/mkuthan/example-spring/tree/master/example-spring-core/src/main/java/example/domain/shared)
+2. [Should Value Objects Contain Technical Validation For Input Parameters?](https://stackoverflow.com/questions/39224430/should-value-objects-contain-technical-validation-for-input-parameters)
+3. [COLA架构](https://github.com/alibaba/COLA)
+4. [DDD 实战课](https://zq99299.github.io/note-book2/ddd/01/02.html#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%A0%B8%E5%BF%83%E5%9F%9F%E3%80%81%E9%80%9A%E7%94%A8%E5%9F%9F%E5%92%8C%E6%94%AF%E6%92%91%E5%9F%9F)
+5. [DDD 戰術設計：Domain Event 領域中的重要事件](https://ithelp.ithome.com.tw/articles/10226734)
+6. [实现领域驱动设计](https://book.douban.com/subject/25844633/)
