@@ -2,7 +2,6 @@ package com.epam.todo.task.domain.valueobject;
 
 import com.epam.common.core.lang.Assert;
 import lombok.Getter;
-import org.apache.commons.lang.StringUtils;
 
 @Getter
 public class TaskTitle {
@@ -21,9 +20,13 @@ public class TaskTitle {
     }
 
     public void isValid() {
+        // we should put technical validations (such as check length,correct input formats,correct data type,...)
+        // out of domain model and somewhere like application layer to keep domain object clear.
         Assert.isNotEmpty(title);
         Assert.checkBetween(title, 1, 20);
         Assert.isNotEmpty(subTitle);
         Assert.checkBetween(subTitle, 1, 200);
+
+        // 其他业务规则，比如title里面要包含一个emoji笑脸
     }
 }

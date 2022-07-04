@@ -20,8 +20,6 @@ public class TaskUpdateCmdExe {
         Assert.isNotNull(taskEntity);
 
         TaskTitle taskTitle = new TaskTitle(cmd.getTitle(), cmd.getSubTitle());
-        taskTitle.isValid();
-
         taskEntity.changeTitle(taskTitle);
         taskGatewayService.updateTaskTitle(taskEntity);
         return Response.buildSuccess();

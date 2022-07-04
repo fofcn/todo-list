@@ -63,6 +63,7 @@ public class TaskEntity extends BaseEntity {
     }
 
     public void changeTitle(TaskTitle title) {
+        title.isValid();
         this.title = title;
     }
 }
