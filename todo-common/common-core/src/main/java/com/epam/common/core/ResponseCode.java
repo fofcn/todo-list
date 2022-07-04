@@ -11,7 +11,7 @@ public enum ResponseCode {
 
     DATA_INTEGRITY("00005", "data integrity violation"),
 
-    HTTP_NOT_FOUND("00006", "data integrity violation"),
+    HTTP_NOT_FOUND("00006", "service unavailable"),
 
     PARAMETER_ERROR("00007", ""),
 

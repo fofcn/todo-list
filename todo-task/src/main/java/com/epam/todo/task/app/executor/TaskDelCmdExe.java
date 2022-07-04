@@ -3,10 +3,9 @@ package com.epam.todo.task.app.executor;
 import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
 import com.epam.todo.task.client.dto.cmd.TaskDelCmd;
-import com.epam.todo.task.infrastructure.model.DeleteEnum;
+import com.epam.todo.task.domain.valueobject.DeleteEnum;
 import com.epam.todo.task.infrastructure.model.Task;
 import com.epam.todo.task.infrastructure.repository.TaskRepository;
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

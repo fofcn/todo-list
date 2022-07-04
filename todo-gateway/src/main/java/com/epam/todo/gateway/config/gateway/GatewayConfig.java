@@ -2,13 +2,13 @@ package com.epam.todo.gateway.config.gateway;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.WebFilter;
 
 @Slf4j
@@ -27,9 +27,9 @@ public class GatewayConfig {
     public WebFilter corsFilter() {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-//            if (!CorsUtils.isCorsRequest(request)) {
-//                return chain.filter(exchange);
-//            }
+            if (!CorsUtils.isCorsRequest(request)) {
+                return chain.filter(exchange);
+            }
 
             ServerHttpResponse response = exchange.getResponse();
             HttpHeaders headers = response.getHeaders();
@@ -41,8 +41,4 @@ public class GatewayConfig {
         };
     }
 
-//    @Bean
-//    public ErrorAttributes errorAttributes() {
-//        return extensionErrorAttributes;
-//    }
 }

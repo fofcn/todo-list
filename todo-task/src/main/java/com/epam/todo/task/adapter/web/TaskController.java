@@ -10,7 +10,7 @@ import com.epam.todo.task.client.dto.cmd.TaskUpdateCmd;
 import com.epam.todo.task.client.dto.cmd.TaskUpdateStatusCmd;
 import com.epam.todo.task.client.dto.data.TaskListDTO;
 import com.epam.todo.task.client.dto.query.TaskListQuery;
-import com.epam.todo.task.infrastructure.model.DeleteEnum;
+import com.epam.todo.task.domain.valueobject.DeleteEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +45,7 @@ public class TaskController {
         return taskService.delTask(cmd);
     }
 
-    @PutMapping("/{taskId}")
+    @PutMapping("{taskId}")
     public Response updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateCmd cmd) {
         cmd.setUserId(JwtUtils.getUserId());
         cmd.setTaskId(taskId);
