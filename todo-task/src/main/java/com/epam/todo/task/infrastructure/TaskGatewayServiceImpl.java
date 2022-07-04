@@ -1,5 +1,6 @@
 package com.epam.todo.task.infrastructure;
 
+import com.epam.common.core.lang.Assert;
 import com.epam.todo.task.domain.entity.TaskEntity;
 import com.epam.todo.task.domain.gateway.TaskGatewayService;
 import com.epam.todo.task.infrastructure.model.Task;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,39 @@ public class TaskGatewayServiceImpl implements TaskGatewayService {
     @Override
     public void saveTask(TaskEntity taskEntity) {
         Task task = taskEntityConverter.serialize(taskEntity);
+        taskRepository.save(task);
+    }
+
+    @Override
+    public TaskEntity findTask(Long userId, Long taskId) {
+        Task task = taskRepository.getById(taskId);
+        Assert.isNotNull(task);
+        Assert.isEquals(userId, task.getUserId());
+        return taskEntityConverter.deserialize(task);
+    }
+
+    @Override
+    public void deleteTask(TaskEntity taskEntity) {
+        Task task = new Task();
+        task.setId(taskEntity.getId());
+        task.setDeleted(taskEntity.getDeleted().getCode());
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void updateTaskTitle(TaskEntity taskEntity) {
+        Task task = new Task();
+        task.setId(task.getId());
+        task.setTitle(taskEntity.getTitle().getTitle());
+        task.setSubTitle(taskEntity.getTitle().getSubTitle());
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void updateTaskStatus(TaskEntity taskEntity) {
+        Task task = new Task();
+        task.setId(taskEntity.getId());
+        task.setStatus(taskEntity.getStatus().getCode());
         taskRepository.save(task);
     }
 }

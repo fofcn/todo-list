@@ -47,14 +47,5 @@ public class TaskDomainService {
         return true;
     }
 
-    /**
-     * 创建任务
-     * @param taskEntity 实体
-     */
-    public void addTask(TaskEntity taskEntity) {
-        // 生成ID
 
-        // 其他处理
-        // 调用gateway存储
-    }
 }

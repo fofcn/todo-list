@@ -1,14 +1,14 @@
 package com.epam.todo.task.infrastructure.model;
 
+import com.epam.todo.common.jpa.BaseJpaEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task extends BaseJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -28,10 +28,4 @@ public class Task {
 
     @Column(name = "status", nullable = false)
     private Integer status;
-
-    @Column(name = "create_time", nullable = false)
-    private LocalDateTime createTime;
-
-    @Column(name = "last_modified_time", nullable = false)
-    private LocalDateTime lastModifiedTime;
 }

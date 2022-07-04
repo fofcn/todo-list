@@ -24,6 +24,7 @@
         <module>common-redis</module>
         <module>common-web</module>
         <module>common-encryption</module>
+        <module>common-domain</module>
     </modules>
 
 </project>

@@ -30,6 +30,7 @@ public class TaskEntity extends BaseEntity {
         taskEntity.title = taskTitle;
         taskEntity.status = status;
         taskEntity.userId = userId;
+        taskEntity.deleted = deleted;
         return taskEntity;
     }
 
@@ -45,6 +46,10 @@ public class TaskEntity extends BaseEntity {
         this.status = next.get();
     }
 
+    public void delete() {
+        this.deleted = DeleteEnum.DELETED;
+    }
+
     public boolean isValidTransition(TaskStatus prev, TaskStatus next) {
         if (prev.equals(StateEnum.TODO) && !next.equals(StateEnum.DONE)) {
             return false;
@@ -55,5 +60,9 @@ public class TaskEntity extends BaseEntity {
         }
 
         return true;
+    }
+
+    public void changeTitle(TaskTitle title) {
+        this.title = title;
     }
 }

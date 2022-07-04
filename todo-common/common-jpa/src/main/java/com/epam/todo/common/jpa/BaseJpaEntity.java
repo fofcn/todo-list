@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 public class BaseJpaEntity {
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "create_time", nullable = false, updatable = false)
     private LocalDateTime createTime;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "last_modified_time", nullable = false)
     private LocalDateTime lastModifiedTime;
 }

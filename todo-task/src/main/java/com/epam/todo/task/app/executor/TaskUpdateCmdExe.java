@@ -1,44 +1,29 @@
 package com.epam.todo.task.app.executor;
 
-import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
+import com.epam.common.core.lang.Assert;
 import com.epam.todo.task.client.dto.cmd.TaskUpdateCmd;
-import com.epam.todo.task.infrastructure.model.Task;
-import com.epam.todo.task.infrastructure.repository.TaskRepository;
-import org.apache.commons.lang.StringUtils;
+import com.epam.todo.task.domain.entity.TaskEntity;
+import com.epam.todo.task.domain.gateway.TaskGatewayService;
+import com.epam.todo.task.domain.valueobject.TaskTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class TaskUpdateCmdExe {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskGatewayService taskGatewayService;
 
     public Response execute(TaskUpdateCmd cmd) {
-        // 根据任务ID查询任务是否存在且为自己创建的task
-        Task task = taskRepository.getById(cmd.getTaskId());
-        if (task == null) {
-            return Response.buildFailure(ResponseCode.TASK_NOT_EXISTING);
-        }
+        TaskEntity taskEntity = taskGatewayService.findTask(cmd.getUserId(), cmd.getTaskId());
+        Assert.isNotNull(taskEntity);
 
-        if (!task.getUserId().equals(cmd.getUserId())) {
-            return Response.buildFailure(ResponseCode.TASK_OWNER_ERROR);
-        }
+        TaskTitle taskTitle = new TaskTitle(cmd.getTitle(), cmd.getSubTitle());
+        taskTitle.isValid();
 
-        task.setId(cmd.getTaskId());
-        if (StringUtils.isNotEmpty(cmd.getTitle())) {
-            task.setTitle(cmd.getTitle());
-        }
-
-        if (StringUtils.isNotEmpty(cmd.getTitle())) {
-            task.setSubTitle(cmd.getSubTitle());
-        }
-
-        task.setLastModifiedTime(LocalDateTime.now());
-        taskRepository.save(task);
+        taskEntity.changeTitle(taskTitle);
+        taskGatewayService.updateTaskTitle(taskEntity);
         return Response.buildSuccess();
     }
 }

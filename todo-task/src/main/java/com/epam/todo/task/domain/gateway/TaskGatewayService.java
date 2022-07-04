@@ -19,4 +19,30 @@ public interface TaskGatewayService {
      * @param taskEntity 任务实体
      */
     void saveTask(TaskEntity taskEntity);
+
+    /**
+     * 查询一个查询
+     * @param userId 用户ID
+     * @param taskId 任务ID
+     * @return 任务实体
+     */
+    TaskEntity findTask(Long userId, Long taskId);
+
+    /**
+     * 删除一个Task
+     * @param taskEntity task 实体
+     */
+    void deleteTask(TaskEntity taskEntity);
+
+    /**
+     * 更新任务title
+     * @param taskEntity 任务实体
+     */
+    void updateTaskTitle(TaskEntity taskEntity);
+
+    /**
+     * 更新任务状态
+     * @param taskEntity 任务实体
+     */
+    void updateTaskStatus(TaskEntity taskEntity);
 }
