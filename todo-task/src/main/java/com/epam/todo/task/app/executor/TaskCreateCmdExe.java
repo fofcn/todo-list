@@ -8,13 +8,8 @@ import com.epam.todo.task.domain.service.TaskDomainService;
 import com.epam.todo.task.domain.valueobject.DeleteEnum;
 import com.epam.todo.task.domain.valueobject.TaskStatus;
 import com.epam.todo.task.domain.valueobject.TaskTitle;
-import com.epam.todo.task.infrastructure.model.StateEnum;
-import com.epam.todo.task.infrastructure.model.Task;
-import com.epam.todo.task.infrastructure.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class TaskCreateCmdExe {

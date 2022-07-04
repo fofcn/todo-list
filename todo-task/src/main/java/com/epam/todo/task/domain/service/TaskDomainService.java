@@ -1,6 +1,5 @@
 package com.epam.todo.task.domain.service;
 
-import com.epam.todo.task.domain.entity.TaskEntity;
 import com.epam.todo.task.domain.valueobject.TaskStatus;
 import com.epam.todo.task.infrastructure.model.StateEnum;
 import org.springframework.stereotype.Service;

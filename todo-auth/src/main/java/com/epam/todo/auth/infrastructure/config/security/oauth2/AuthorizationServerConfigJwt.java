@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
 import com.epam.fans.auth.infrastructure.config.security.SecurityProperties;
-import com.epam.todo.auth.infrastructure.auth.UserDO;
 import com.epam.todo.auth.infrastructure.config.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

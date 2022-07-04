@@ -5,7 +5,6 @@ import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.SingleResponse;
 import com.epam.todo.auth.client.dto.cmd.AuthRefreshTokenCmd;
 import com.epam.todo.auth.client.dto.data.AuthRefreshTokenDTO;
-import com.epam.todo.auth.client.dto.data.AuthTokenDTO;
 import com.epam.todo.auth.infrastructure.config.AuthConfig;
 import com.epam.todo.auth.infrastructure.exception.CustomRestResponseErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
