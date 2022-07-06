@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql8
+  namespace: todo
+  labels:
+    app: mysql8
+spec:
+  selector:
+    matchLabels:
+      app: mysql8
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql8
+    spec:
+      containers:
+      - name: mysql8
+        image: mysql:8.0.29
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: epam2022.
+        volumeMounts:
+        - name: data-dir
+          mountPath: /var/lib/mysql
+        - name: conf-file
+          mountPath: /etc/mysql/conf.d
+            
+      volumes:
+        - name: data-dir
+          hostPath: 
+            path: /appdata/app/data/mysql
+            type: Directory
+        - name: conf-file
+          hostPath:
+            path: /appdata/app/compose/mysql/conf
+            type: Directory

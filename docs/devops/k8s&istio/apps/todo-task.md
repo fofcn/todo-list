@@ -4,22 +4,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eureka
+  name: task
   namespace: todo
 spec:
   selector:
     matchLabels:
-      app: eureka
-  replicas: 2 
+      app: task
+  replicas: 2
   template:
     metadata:
       labels:
-        app: eureka
+        app: task
     spec:
       containers:
-      - name: eureka
-        image: eureka:${tag}
+      - name: task
+        image: task:${tag}
+        imagePullPolicy: Never
         ports:
-        - containerPort: 40000
-        
+        - containerPort: 40002
+
 ```

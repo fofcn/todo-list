@@ -1,6 +1,6 @@
 # CQRS
 Command Query Responsibility Segregation(命令与查询职责分离)
-
+![CQRS架构](../asset/image/CQRS(Martin%20Fowloer).png)
 # 目标
 1. 性能
 2. 扩展性

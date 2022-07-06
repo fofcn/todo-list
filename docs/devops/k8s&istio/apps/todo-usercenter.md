@@ -4,21 +4,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: usercenter
   namespace: todo
 spec:
   selector:
     matchLabels:
-      app: auth
+      app: usercenter
   replicas: 2
   template:
     metadata:
       labels:
-        app: auth
+        app: usercenter
     spec:
       containers:
-      - name: auth
-        image: auth:${tag}
+      - name: usercenter
+        image: usercenter:${tag}
+        imagePullPolicy: Never
         ports:
         - containerPort: 40002
 
