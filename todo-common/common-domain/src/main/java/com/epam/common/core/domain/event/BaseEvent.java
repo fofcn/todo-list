@@ -2,11 +2,11 @@ package com.epam.common.core.domain.event;
 
 import java.util.UUID;
 
-public class AbstractEvent<T> implements Event {
+public class BaseEvent<T> implements Event {
 
     private T payload;
 
-    public AbstractEvent(T payload) {
+    public BaseEvent(T payload) {
         this.payload = payload;
     }
 

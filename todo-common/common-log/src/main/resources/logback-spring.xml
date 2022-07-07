@@ -48,7 +48,6 @@
 
     <!-- 开发环境输出至控制台 -->
     <springProfile name="dev">
-        <logger name="com.alibaba.nacos" level="OFF" addtivity="false"> </logger>
         <root level="INFO">
             <appender-ref ref="CONSOLE" />
         </root>
