@@ -4,11 +4,11 @@
     <parent>
         <artifactId>todo-list</artifactId>
         <groupId>com.epam</groupId>
-        <version>1.0.2</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>todo-auth</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
     <name>todo-auth</name>
     <packaging>jar</packaging>
 
