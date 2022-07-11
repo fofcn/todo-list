@@ -1,0 +1,7 @@
+server:
+  port: 40004
+
+spring:
+  profiles:
+    active: dev
+
