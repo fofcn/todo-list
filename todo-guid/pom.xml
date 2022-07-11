@@ -4,11 +4,11 @@
     <parent>
         <artifactId>todo-list</artifactId>
         <groupId>com.epam</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>todo-guid</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -63,25 +63,25 @@
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-core</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-jpa</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-web</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-log</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
