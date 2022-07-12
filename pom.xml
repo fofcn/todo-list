@@ -18,9 +18,9 @@
 	<modules>
 		<module>todo-common</module>
 		<module>todo-auth</module>
-		<module>todo-eureka</module>
+<!--		<module>todo-eureka</module>-->
 		<module>todo-dict</module>
-		<module>todo-gateway</module>
+<!--		<module>todo-gateway</module>-->
 		<module>todo-guid</module>
 		<module>todo-usercenter</module>
 		<module>todo-task</module>
@@ -31,8 +31,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 
-		<spring-cloud.version>2021.0.3</spring-cloud.version>
-		<spring.boot.version>2.5.5</spring.boot.version>
+		<spring.boot.version>2.6.8</spring.boot.version>
 
 		<shardingsphere.version>4.1.1</shardingsphere.version>
 		<druid.version>1.1.21</druid.version>
@@ -52,15 +51,17 @@
 
 	<dependencyManagement>
 		<dependencies>
-
 			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.3.4</version>
 			</dependency>
 
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.1.0.Final</version>
+			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
@@ -127,6 +128,12 @@
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 				<version>${shardingsphere.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
 			</dependency>
 		</dependencies>
 

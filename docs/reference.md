@@ -26,5 +26,7 @@
 25. [MySQL未监听3306](https://stackoverflow.com/questions/51318547/mysql-how-to-set-skip-networking-to-off)
 26. [Mocking Static Methods With Mockito](https://www.baeldung.com/mockito-mock-static-methods)
 27. [No runnable method in JUnit test Suites (Initialization error)](https://stackoverflow.com/questions/70321352/no-runnable-method-in-junit-test-suites-initialization-error)
+28. [Command to delete all pods in all kubernetes namespaces](https://stackoverflow.com/questions/33509194/command-to-delete-all-pods-in-all-kubernetes-namespaces)
+29. [删除所有kubernetes名称空间中的Pod](https://lyyao09.github.io/2019/08/05/stack/Command-to-delete-all-pods-in-all-kubernetes-namespaces/)
 
 
