@@ -10,7 +10,12 @@
     <artifactId>common-encryption</artifactId>
     <name>common-encryption</name>
     <packaging>jar</packaging>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.epam</groupId>
+            <artifactId>common-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

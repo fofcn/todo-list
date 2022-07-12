@@ -46,7 +46,7 @@ public class TaskController {
     }
 
     @PutMapping("{taskId}")
-    public Response updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateCmd cmd) {
+    public Response updateTaskTitle(@PathVariable Long taskId, @RequestBody TaskUpdateCmd cmd) {
         cmd.setUserId(JwtUtils.getUserId());
         cmd.setTaskId(taskId);
         return taskService.updateTask(cmd);
