@@ -70,10 +70,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: auth
   name: auth-clusterip
   namespace: todo
+  labels:
+    app: auth
 spec:
   ports:
     - name: service0
@@ -83,3 +83,37 @@ spec:
   selector:
     app: auth
   type: ClusterIP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: auth-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: auth-vservice
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - helloworld-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/auth
+      route:
+        - destination:
+            host: auth-clusterip
+            port:
+              number: 40002
