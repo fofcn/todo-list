@@ -1,0 +1,18 @@
+@startuml prevent reply attack with client timestamp
+'https://plantuml.com/sequence-diagram
+
+' autonumber
+
+
+Client -> Server: Request with timestamp
+Server -> Server: Check if timeout (Server.curTimestamp - Request.timestamp < N)
+alt no timeout
+    Server -> Server: Process Request
+    Client <-- Server: Give correspond Response
+end
+
+alt timeout
+    Client <-- Server: Access Denied
+end
+
+@enduml

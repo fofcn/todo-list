@@ -34,5 +34,5 @@ kubectl run -i --tty --image=nginx:alpine --restart=Never test --rm /bin/sh -n t
 ```
 
 # 集群内访问（ClusterIP)
-[follow this link](https://support.huaweicloud.com/usermanual-cce/cce_01_0011.html)
+1. [follow this link](https://support.huaweicloud.com/usermanual-cce/cce_01_0011.html)
 

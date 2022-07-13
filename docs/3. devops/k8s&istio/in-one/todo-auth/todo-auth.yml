@@ -6,8 +6,10 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: prod
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-clusterip:40000/eureka/
-  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME: username
-  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME: username
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME: todo_user
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD: epam2022.
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME: todo_user
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD: epam2022.
   SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
   SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
 ---
@@ -107,7 +109,7 @@ spec:
   hosts:
     - "*"
   gateways:
-    - helloworld-gateway
+    - auth-gateway
   http:
     - match:
         - uri:
