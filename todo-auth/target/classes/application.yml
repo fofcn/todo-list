@@ -1,7 +1,0 @@
-server:
-  port: 40002
-
-spring:
-  profiles:
-    active: dev
-

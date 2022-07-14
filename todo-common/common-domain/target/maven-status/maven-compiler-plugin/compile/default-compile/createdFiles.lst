@@ -1,5 +1,0 @@
-com\epam\common\core\domain\event\BaseEvent.class
-com\epam\common\core\domain\event\Event.class
-com\epam\common\core\domain\valueobject\BaseValueObject.class
-com\epam\common\core\domain\entity\BaseEntity.class
-com\epam\common\core\domain\event\EventPublisher.class
