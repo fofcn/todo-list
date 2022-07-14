@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.epam.todo.common.redis.RedisConfig,\
+  com.epam.todo.common.redis.RedissonConfig,\
+  com.epam.todo.common.redis.RedisCacheConfig
+

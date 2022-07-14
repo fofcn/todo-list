@@ -1,0 +1,40 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: auth-gateway
+  namespace: todo
+  labels:
+    app: auth-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-ingressgateway
+  namespace: todo
+  labels:
+    app: todo-ingressgateway
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      nodePort: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+    - port: 80
+        nodePort: 80
+        targetPort: 32212
+        protocol: TCP
+        name: service0
+  selector:
+    app: auth-gateway

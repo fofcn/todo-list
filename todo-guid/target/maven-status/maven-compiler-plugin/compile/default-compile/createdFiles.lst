@@ -1,0 +1,9 @@
+com\epam\todo\guid\GuidApplication.class
+com\epam\todo\guid\service\impl\UidGenerateServiceImpl.class
+com\epam\todo\guid\repository\WorkerNodeRepository.class
+com\epam\todo\guid\config\UidGeneratorProperties.class
+com\epam\todo\guid\controller\GuidController.class
+com\epam\todo\guid\model\WorkerNode.class
+com\epam\todo\guid\service\IUidGenerateService.class
+com\epam\todo\guid\config\UidGeneratorConfig.class
+com\epam\todo\guid\config\DisposableWorkerIdAssigner.class

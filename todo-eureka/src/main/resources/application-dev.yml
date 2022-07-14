@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: eureka
+
+eureka:
+  instance:
+    #使用IP访问注册中心
+    prefer-ip-address: true
+    #在注册中心status的时候显示的格式，这里是 ip:端口
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname:  ${spring.cloud.client.ip-address}
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+  client:
+    #是否向自己注册
+    register-with-eureka: false
+    fetch-registry: false
+    #集群配置，需要配置其他eureka注册中心的地址，不过一般都放到启动参数，而不放置到配置文件中
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

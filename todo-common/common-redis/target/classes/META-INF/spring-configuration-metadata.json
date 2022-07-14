@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "redisson",
+      "type": "com.epam.todo.common.redis.RedissonConfig",
+      "sourceType": "com.epam.todo.common.redis.RedissonConfig"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

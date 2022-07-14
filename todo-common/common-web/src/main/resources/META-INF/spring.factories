@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.epam.todo.common.web.config.WebMvcConfig,\
+  com.epam.todo.common.web.exception.GlobalExceptionHandler

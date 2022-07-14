@@ -1,0 +1,22 @@
+@startuml prevent replay attack with timestamp and nonce and signature
+'https://plantuml.com/sequence-diagram
+
+' autonumber
+' credential algorithm:
+' HTTPS/TLS
+
+' signature algorithm:
+' HmacSHA256
+' HmacSHA1
+
+Client -> Server: Request with timestamp and nonce and signature
+Server -> Server: Check if timeout (Server.curTimestamp - Request.timestamp < N)\n check nonce if existing \n check signature if it equals server calculated signature
+alt no timeout and nonce exists and same signature
+    Server -> Server: Process Request
+    Client <-- Server: Give correspond Response
+end
+
+alt timeout and nonce not existing and signature not same
+    Client <-- Server: Access Denied
+end
+@enduml

@@ -1,0 +1,10 @@
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\client\api\UserService.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\app\executor\UserCreateCmdExe.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\app\UserServiceImpl.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\infrastructure\model\User.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\infrastructure\repository\UserRepository.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\UsercenterApplication.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\domain\entity\UserEntity.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\adapter\web\UserController.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\client\dto\cmd\UserCreateCmd.java
+C:\Users\Ford_Ji\IdeaProjects\todo-list_github\todo-usercenter\src\main\java\com\epam\todo\usercenter\domain\UserGatewayService.java

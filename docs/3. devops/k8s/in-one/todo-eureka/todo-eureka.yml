@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka
+  namespace: todo
+spec:
+  selector:
+    matchLabels:
+      app: eureka
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eureka
+    spec:
+      containers:
+        - name: eureka
+          image: eureka:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 40000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-clusterip
+  namespace: todo
+  labels:
+    app: eureka
+spec:
+  ports:
+    - name: service0
+      port: 40000
+      protocol: TCP
+      targetPort: 40000
+  selector:
+    app: eureka
+  type: ClusterIP
