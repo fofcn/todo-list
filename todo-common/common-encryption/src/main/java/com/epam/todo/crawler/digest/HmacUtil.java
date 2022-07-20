@@ -1,4 +1,4 @@
-package com.epam.todo.crypto.digest;
+package com.epam.todo.crawler.digest;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
