@@ -1,5 +1,5 @@
 <configuration>
-    <property name="LOG_HOME" value="C:/Users/Ford_Ji/IdeaProjects/todo-list_github/todo-common/common-encryption/target/app/applog/crawler" />
+    <property name="LOG_HOME" value="/app/applog/crawler" />
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
