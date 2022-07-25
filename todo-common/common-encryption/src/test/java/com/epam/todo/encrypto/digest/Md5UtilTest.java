@@ -1,6 +1,6 @@
-package com.epam.todo.crawler;
+package com.epam.todo.encrypto.digest;
 
-import com.epam.todo.crawler.digest.Md5Util;
+import com.epam.todo.encrypto.digest.Md5Util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

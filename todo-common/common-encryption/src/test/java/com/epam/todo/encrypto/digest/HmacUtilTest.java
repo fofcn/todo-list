@@ -1,6 +1,6 @@
-package com.epam.todo.crawler;
+package com.epam.todo.encrypto.digest;
 
-import com.epam.todo.crawler.digest.HmacUtil;
+import com.epam.todo.encrypto.digest.HmacUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

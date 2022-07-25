@@ -1,6 +1,5 @@
 package com.epam.todo.crawler.wrapper.store;
 
-import com.epam.todo.crawler.exmple.util.StorePathUtil;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.apache.commons.lang3.StringUtils;

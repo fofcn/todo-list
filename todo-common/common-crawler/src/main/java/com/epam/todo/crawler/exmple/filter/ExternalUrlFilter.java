@@ -1,8 +1,8 @@
 package com.epam.todo.crawler.exmple.filter;
 
-import com.epam.todo.crawler.wrapper.WebCrawlerWrapper;
 import com.epam.todo.crawler.exmple.config.ExampleConfig;
 import com.epam.todo.crawler.wrapper.filter.UrlFilter;
+import com.epam.todo.crawler.wrapper.WebCrawlerWrapper;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.url.WebURL;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.epam.todo.crawler;
+package com.epam.todo.encrypto.digest;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
