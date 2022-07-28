@@ -60,6 +60,8 @@ public class GrpcClientTest {
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
+
+        socketServer.shutdown();
     }
 
     @Test
