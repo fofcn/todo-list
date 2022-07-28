@@ -102,13 +102,13 @@ public class GrpcServer implements SocketServer {
 
     @Override
     public void addRequestProcessor(RequestProcessor processor) {
-        final String name = processor.getClass().getName();
-        final Message reqIns = this.parserClasses.get(name);
+        final String interest = processor.interest();
+        final Message reqIns = this.parserClasses.get(interest);
         MethodDescriptor<Message, Message> method = MethodDescriptor.<Message, Message>newBuilder()
                 .setType(MethodDescriptor.MethodType.UNARY)
-                .setFullMethodName(MethodDescriptor.generateFullMethodName(name, "_call"))
+                .setFullMethodName(MethodDescriptor.generateFullMethodName(interest, "_call"))
                 .setRequestMarshaller(ProtoUtils.marshaller(reqIns))
-                .setResponseMarshaller(ProtoUtils.marshaller(responseMarshallers.get(name)))
+                .setResponseMarshaller(ProtoUtils.marshaller(responseMarshallers.get(interest)))
                 .build();
 
         final ServerCallHandler<Message, Message> handler = ServerCalls.asyncUnaryCall(
@@ -157,7 +157,7 @@ public class GrpcServer implements SocketServer {
                 });
 
         final ServerServiceDefinition serviceDef = ServerServiceDefinition //
-                .builder(name) //
+                .builder(interest) //
                 .addMethod(method, handler) //
                 .build();
 

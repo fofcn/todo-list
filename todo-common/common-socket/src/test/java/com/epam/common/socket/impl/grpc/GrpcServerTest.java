@@ -3,7 +3,8 @@ package com.epam.common.socket.impl.grpc;
 import com.epam.common.socket.Endpoint;
 import com.epam.common.socket.SocketServer;
 import com.epam.common.socket.impl.tcp.grpc.GrpcServer;
-import com.epam.common.socket.impl.tcp.grpc.GrpcServerFactory;
+import com.epam.common.socket.impl.tcp.grpc.GrpcSocketFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,18 @@ public class GrpcServerTest {
 
     @BeforeEach
     public void testConstruct() {
-        final Endpoint endpoint = new Endpoint("127.0.0.1", 65534);
-        final GrpcServerFactory grpcServerFactory = new GrpcServerFactory();
-        SocketServer socketServer = grpcServerFactory.createSocketServer(endpoint);
+        final Endpoint endpoint = new Endpoint("127.0.0.1", 65533);
+        final GrpcSocketFactory grpcSocketFactory = new GrpcSocketFactory();
+        SocketServer socketServer = grpcSocketFactory.createSocketServer(endpoint);
         assertNotNull(socketServer);
 
         grpcServer = (GrpcServer) socketServer;
+    }
+
+    @AfterEach
+    public void afterEach() {
+        grpcServer.shutdown();
+        assertFalse(grpcServer.isStarted());
     }
 
     @Order(1000)
@@ -46,18 +53,5 @@ public class GrpcServerTest {
             grpcServer.start();
         });
         assertEquals(exception.getMessage(), "grpc server has started");
-    }
-
-    @Test
-    public void testShutdown() {
-        grpcServer.init(null);
-        grpcServer.start();
-        assertTrue(grpcServer.isStarted());
-
-        grpcServer.shutdown();
-        assertFalse(grpcServer.isStarted());
-
-        grpcServer.shutdown();
-        assertFalse(grpcServer.isStarted());
     }
 }

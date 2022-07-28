@@ -1,6 +1,7 @@
 package com.epam.common.socket.impl.tcp.grpc;
 
 import com.epam.common.socket.Endpoint;
+import com.epam.common.socket.SocketClient;
 import com.epam.common.socket.SocketServer;
 import com.google.protobuf.Message;
 import io.grpc.Server;
@@ -11,7 +12,7 @@ import io.netty.util.internal.SystemPropertyUtil;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GrpcServerFactory {
+public class GrpcSocketFactory {
     private static final int RPC_MAX_INBOUND_MESSAGE_SIZE = SystemPropertyUtil.getInt(
             "socket.grpc.max_inbound_message_size.bytes",
             4 * 1024 * 1024);
@@ -30,6 +31,11 @@ public class GrpcServerFactory {
                 .build();
         final SocketServer rpcServer = new GrpcServer(server, handlerRegistry, this.parserClasses, this.responseMarshallers);
         return rpcServer;
+    }
+
+    public SocketClient createRpcClient() {
+        final SocketClient rpcClient = new GrpcClient(this.parserClasses, responseMarshallers);
+        return rpcClient;
     }
 
     public void registerProtobufSerializer(final String className, final Object... args) {

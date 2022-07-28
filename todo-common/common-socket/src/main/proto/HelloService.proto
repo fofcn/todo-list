@@ -14,7 +14,3 @@ message HelloRequest {
 message HelloResponse {
   string world = 1;
 }
-
-service HelloService {
-  rpc hello(HelloRequest) returns (HelloResponse);
-}

@@ -4,14 +4,14 @@ import com.epam.common.socket.Endpoint;
 import com.epam.common.socket.SocketServer;
 import com.epam.common.socket.grpc.HelloRequest;
 import com.epam.common.socket.grpc.HelloResponse;
-import com.epam.common.socket.impl.tcp.grpc.GrpcServerFactory;
+import com.epam.common.socket.impl.tcp.grpc.GrpcSocketFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GrpcServerFactoryTest {
-    GrpcServerFactory serverFactory = new GrpcServerFactory();
+    GrpcSocketFactory serverFactory = new GrpcSocketFactory();
 
     @BeforeEach
     public void beforeEach() {

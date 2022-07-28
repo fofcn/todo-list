@@ -16,7 +16,7 @@ public interface SocketClient extends LifeCycle<SocketConfig> {
      * @param timeoutMillis timeout with millisecond time unit
      * @return send result
      */
-    default Object sendSync(final Endpoint endpoint, final Object request, final long timeoutMillis) {
+    default Object sendSync(final Endpoint endpoint, final Object request, final long timeoutMillis) throws SocketException {
         return sendSync(endpoint, request, null, timeoutMillis);
     }
 
