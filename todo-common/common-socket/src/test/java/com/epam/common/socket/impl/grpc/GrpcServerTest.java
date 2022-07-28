@@ -2,6 +2,8 @@ package com.epam.common.socket.impl.grpc;
 
 import com.epam.common.socket.Endpoint;
 import com.epam.common.socket.SocketServer;
+import com.epam.common.socket.impl.tcp.grpc.GrpcServer;
+import com.epam.common.socket.impl.tcp.grpc.GrpcServerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

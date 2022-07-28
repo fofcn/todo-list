@@ -4,6 +4,7 @@ import com.epam.common.socket.Endpoint;
 import com.epam.common.socket.SocketServer;
 import com.epam.common.socket.grpc.HelloRequest;
 import com.epam.common.socket.grpc.HelloResponse;
+import com.epam.common.socket.impl.tcp.grpc.GrpcServerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

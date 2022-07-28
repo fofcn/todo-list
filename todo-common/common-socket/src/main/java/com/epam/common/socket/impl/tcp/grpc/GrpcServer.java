@@ -1,4 +1,4 @@
-package com.epam.common.socket.impl.grpc;
+package com.epam.common.socket.impl.tcp.grpc;
 
 import com.epam.common.socket.Connection;
 import com.epam.common.socket.ConnectionClosedEventListener;

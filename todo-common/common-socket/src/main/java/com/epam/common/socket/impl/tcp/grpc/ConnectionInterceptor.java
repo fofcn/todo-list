@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.epam.common.socket.impl.grpc;
+package com.epam.common.socket.impl.tcp.grpc;
 
 import com.epam.common.socket.Connection;
 import com.epam.common.socket.ConnectionClosedEventListener;
