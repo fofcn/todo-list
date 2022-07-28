@@ -40,6 +40,17 @@
 		<slf4j.version>1.7.21</slf4j.version>
 		<protobuf.version>3.12.0</protobuf.version>
 		<grpc.version>1.48.0</grpc.version>
+		<httpcomponent.version>4.5.3</httpcomponent.version>
+		<validation.version>1.1.0.Final</validation.version>
+		<junit.jupiter.version>5.8.2</junit.jupiter.version>
+		<mockito.core.version>4.0.0</mockito.core.version>
+		<mockito-inline.version>3.8.0</mockito-inline.version>
+		<logstash-logback-encoder.version>6.4</logstash-logback-encoder.version>
+		<commons-codec.version>1.14</commons-codec.version>
+		<commons-crypto.version>1.1.0</commons-crypto.version>
+		<commons-io.version>2.6</commons-io.version>
+		<commons-lang3.version>3.12.0</commons-lang3.version>
+		<netty.version>4.0.36.Final</netty.version>
 
 		<docker.image.prefix />
 		<dockerfile.skip>true</dockerfile.skip>
@@ -57,63 +68,51 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.5.3</version>
+				<version>${httpcomponent.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
-				<version>1.1.0.Final</version>
+				<version>${validation.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
-				<version>5.8.2</version>
+				<version>${junit.jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.8.2</version>
+				<version>${junit.jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.vintage</groupId>
 				<artifactId>junit-vintage-engine</artifactId>
-				<version>5.8.2</version>
+				<version>${junit.jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>4.0.0</version>
+				<version>${mockito.core.version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-inline</artifactId>
-				<version>3.8.0</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<optional>true</optional>
-			</dependency>
-
-			<dependency>
-				<groupId>io.projectreactor</groupId>
-				<artifactId>reactor-test</artifactId>
+				<version>${mockito-inline.version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>net.logstash.logback</groupId>
 				<artifactId>logstash-logback-encoder</artifactId>
-				<version>6.4</version>
+				<version>${logstash-logback-encoder.version}</version>
 			</dependency>
 
 			<dependency>
@@ -129,22 +128,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.14</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-crypto</artifactId>
-				<version>1.1.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-inline</artifactId>
-				<version>3.8.0</version>
-				<scope>test</scope>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+				<version>${shardingsphere.version}</version>
 			</dependency>
 
 			<dependency>
@@ -154,36 +140,35 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-				<version>${shardingsphere.version}</version>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons-codec.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-crypto</artifactId>
+				<version>${commons-crypto.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.6</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.14</version>
+				<version>${commons-io.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.12.0</version>
+				<version>${commons-lang3.version}</version>
 			</dependency>
 
 			<!-- netty -->
 			<dependency>
 				<groupId>io.netty</groupId>
 				<artifactId>netty-all</artifactId>
-				<version>4.0.36.Final</version>
+				<version>${netty.version}</version>
 			</dependency>
-			<!-- netty -->
 
 			<!-- log facade -->
 			<dependency>
