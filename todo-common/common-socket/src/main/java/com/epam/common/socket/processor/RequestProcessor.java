@@ -7,6 +7,4 @@ public interface RequestProcessor<T> {
     void handleRequest(final SocketContext socketContext, final T request);
 
     default Executor executor()  {return null;}
-
-
 }

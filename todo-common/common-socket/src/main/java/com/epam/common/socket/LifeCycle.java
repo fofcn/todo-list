@@ -19,6 +19,12 @@ public interface LifeCycle<T> {
     void start();
 
     /**
+     * test if server is started.
+     * @return true if server have started, false otherwise.
+     */
+    boolean isStarted();
+
+    /**
      * Shutdown the service.
      */
     void shutdown();

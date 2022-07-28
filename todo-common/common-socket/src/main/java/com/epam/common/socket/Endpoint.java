@@ -12,4 +12,25 @@ public class Endpoint {
         this.ip = ip;
         this.port = port;
     }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public String getAddress() {
+        return ip + ":" + port;
+    }
+
+    @Override
+    public String toString() {
+        return "Endpoint{" +
+                "ip='" + ip + '\'' +
+                ", port=" + port +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

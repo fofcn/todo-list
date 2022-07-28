@@ -13,11 +13,13 @@ public interface SocketServer extends LifeCycle<Void> {
      * Add a user's request processor
      * @param processor request processor
      */
-    void addRequestProcessor(RequestProcessor<?> processor);
+    void addRequestProcessor(final RequestProcessor<?> processor);
 
     /**
      * Add a user's request interceptor
      * @param interceptor request interceptor
      */
     void addRequestInterceptor(final RequestInterceptor interceptor);
+
+    void registerConnectionClosedEventListener(final ConnectionClosedEventListener listener);
 }

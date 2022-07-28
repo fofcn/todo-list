@@ -1,5 +1,8 @@
 package com.epam.common.socket;
 
+import com.epam.common.socket.exception.SocketException;
+import com.epam.common.socket.exception.SocketTimeoutException;
+
 /**
  * socket client
  * The client capability is mainly to send data.
@@ -25,7 +28,7 @@ public interface SocketClient extends LifeCycle<SocketConfig> {
      * @param timeoutMillis timeout with millisecond time unit
      * @return send result
      */
-    Object sendSync(final Endpoint endpoint, final Object request, final SendContext sendContext, final long timeoutMillis);
+    Object sendSync(final Endpoint endpoint, final Object request, final SendContext sendContext, final long timeoutMillis) throws SocketException;
 
     /**
      * asynchronous send a request with a callback
