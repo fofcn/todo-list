@@ -18,7 +18,6 @@ public class GrpcServerTest {
 
     private GrpcServer grpcServer;
 
-
     @BeforeEach
     public void testConstruct() {
         final Endpoint endpoint = new Endpoint("127.0.0.1", 65533);

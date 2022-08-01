@@ -1,6 +1,7 @@
 package com.epam.common.socket.impl.grpc;
 
 import com.epam.common.socket.Endpoint;
+import com.epam.common.socket.SendCallback;
 import com.epam.common.socket.SocketClient;
 import com.epam.common.socket.SocketServer;
 import com.epam.common.socket.exception.SocketException;
@@ -9,10 +10,9 @@ import com.epam.common.socket.grpc.HelloResponse;
 import com.epam.common.socket.impl.tcp.grpc.GrpcSocketFactory;
 import com.epam.common.socket.processor.RequestProcessor;
 import com.epam.common.socket.processor.SocketContext;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,12 +44,9 @@ public class GrpcClientTest {
     }
 
     @Test
+    @DisplayName("Testcase for sending sync normally")
     public void testSendSyncNormal() {
-        // start grpc server
-        SocketServer socketServer = factory.createSocketServer(endpoint);
-        socketServer.addRequestProcessor(new HelloProcessor());
-        socketServer.init(null);
-        socketServer.start();
+        SocketServer socketServer = createTestServer();
 
         // send message to grpc server
         HelloRequest request = HelloRequest.newBuilder().setHello("Hello").build();
@@ -59,9 +56,43 @@ public class GrpcClientTest {
             assertEquals("World", response.getWorld());
         } catch (SocketException e) {
             throw new RuntimeException(e);
+        } finally {
+            destroyTestServer(socketServer);
         }
+    }
 
-        socketServer.shutdown();
+    @Test
+    @DisplayName("Testcase for sending async normally")
+    public void testSendAsyncNormal() {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        SocketServer socketServer = createTestServer();
+        HelloRequest request = HelloRequest.newBuilder().setHello("Hello").build();
+        try {
+            final HelloResponse[] helloResponse = {null};
+            final Throwable[] throwables = {null};
+            grpcClient.sendAsync(endpoint, request, new SendCallback() {
+                @Override
+                public void complete(Object result, Throwable err) {
+                    helloResponse[0] = (HelloResponse) result;
+                    throwables[0] = err;
+                    countDownLatch.countDown();
+                }
+
+                @Override
+                public Executor executor() {
+                    return SendCallback.super.executor();
+                }
+            }, 60000L);
+
+            countDownLatch.await();
+            assertNotNull(helloResponse[0]);
+            assertNull(throwables[0]);
+            assertEquals("World", helloResponse[0].getWorld());
+        } catch (InterruptedException e) {
+            fail();
+        } finally {
+            destroyTestServer(socketServer);
+        }
     }
 
     @Test
@@ -73,8 +104,24 @@ public class GrpcClientTest {
         assertNotNull(socketException);
     }
 
-    public static class HelloProcessor implements RequestProcessor<HelloRequest> {
+    private SocketServer createTestServer() {
+        // start grpc server
+        SocketServer socketServer = factory.createSocketServer(endpoint);
+        socketServer.addRequestProcessor(new HelloProcessor());
+        socketServer.init(null);
+        socketServer.start();
 
+        return socketServer;
+    }
+
+    private void destroyTestServer(SocketServer socketServer) {
+        socketServer.shutdown();
+    }
+
+
+    public static class HelloProcessor implements RequestProcessor<HelloRequest> {
+        private final Executor executor = new ThreadPoolExecutor(1, 1, 60L,
+                TimeUnit.SECONDS, new SynchronousQueue<>());
         @Override
         public void handleRequest(SocketContext socketContext, HelloRequest request) {
             HelloResponse response = HelloResponse.newBuilder().setWorld("World").build();
@@ -84,6 +131,11 @@ public class GrpcClientTest {
         @Override
         public String interest() {
             return HelloRequest.class.getName();
+        }
+
+        @Override
+        public Executor executor() {
+            return executor;
         }
     }
 }

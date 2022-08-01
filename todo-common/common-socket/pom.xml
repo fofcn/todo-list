@@ -72,12 +72,6 @@
             <artifactId>grpc-netty-shaded</artifactId>
         </dependency>
 
-
-<!--        <dependency>-->
-<!--            <groupId>io.grpc</groupId>-->
-<!--            <artifactId>grpc-netty</artifactId>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
@@ -127,16 +121,14 @@
                     <pluginArtifact>
                         io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
                     </pluginArtifact>
-                    <!-- Place these in a location that compiler-plugin is already looking -->
-                    <!--                    <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>-->
-                    <!-- With multiple executions, this must be `false` otherwise we wipe out the previous execution -->
-                    <!--                    <clearOutputDirectory>false</clearOutputDirectory>-->
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
                             <goal>compile-custom</goal>
+                            <goal>test-compile</goal>
+                            <goal>test-compile-custom</goal>
                         </goals>
                     </execution>
                 </executions>
