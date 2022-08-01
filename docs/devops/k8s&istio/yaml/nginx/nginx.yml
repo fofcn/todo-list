@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: todo
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: conf-dir
+          mountPath: /etc/nginx/conf.d
+        - name: site-dir
+          mountPath: /app/webroot
+        - name: log-dir
+          mountPath: /app/applog/nginx/logs/
+      
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+      - name: conf-dir
+        hostPath:
+          path: /appdata/app/webroot/conf.d
+          type: Directory
+      - name: site-dir
+        hostPath:
+          path: /appdata/app/webroot/
+          type: Directory
+      - name: log-dir
+        hostPath: 
+          path: /appdata/app/applog/nginx/logs
+          type: Directory

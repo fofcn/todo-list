@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-configmap
+  namespace: todo
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-clusterip:40000/eureka/
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME: todo_user
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME: todo_user
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://47.108.62.173:60000/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://47.108.62.173:60000/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8

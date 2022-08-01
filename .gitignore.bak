@@ -21,7 +21,6 @@
 
 ### Plugins ###
 *.releaseBackup
-release.properties
 
 ### NetBeans ###
 /nbproject/private/
