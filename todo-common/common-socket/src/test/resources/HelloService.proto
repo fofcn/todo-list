@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.epam.common.socket.grpc";
+//option java_outer_classname = "HelloProtos";
+option java_generate_equals_and_hash = true;
+option java_multiple_files = true;
+
+package proto.hello;
+
+message HelloRequest {
+  string Hello = 1;
+}
+
+message HelloResponse {
+  string world = 1;
+}

@@ -7,9 +7,9 @@ spring:
       master:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://172.19.143.30:60000/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-        username: todo_user
-        password: epam2022.
+        url: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+        username: username
+        password:
         initialSize: 5
         minIdle: 5
         maxActive: 20
@@ -29,9 +29,9 @@ spring:
       slave0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://172.19.143.30:60000/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-        username: todo_user
-        password: epam2022.
+        url: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+        username: username
+        password:
         initialSize: 5
         minIdle: 5
         maxActive: 20
@@ -55,18 +55,6 @@ spring:
     props:
       sql:
         show: true
-eureka:
-  instance:
-    preferIpAddress: true
-    instanceId: ${spring.cloud.client.ip-address}:${server.port}
-    hostname: ${spring.cloud.client.ip-address}
-    leaseRenewalIntervalInSeconds: 15
-  client:
-    serviceUrl:
-      defaultZone: http://172.19.143.30:40000/eureka/
-    registryFetchIntervalSeconds: 1
-    refresh:
-      enable: true
 
 
 security:

@@ -1,0 +1,17 @@
+@startuml prevent replay attack with timestamp and nonce
+'https://plantuml.com/sequence-diagram
+
+' autonumber
+
+
+Client -> Server: Request with timestamp and nonce
+Server -> Server: Check if timeout (Server.curTimestamp - Request.timestamp < N and nonce if existing)
+alt no timeout
+    Server -> Server: Process Request
+    Client <-- Server: Give correspond Response
+end
+
+alt timeout
+    Client <-- Server: Access Denied
+end
+@enduml

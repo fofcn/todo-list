@@ -1,0 +1,66 @@
+# mysql k8s config
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql8
+  namespace: todo
+  labels:
+    app: mysql8
+spec:
+  selector:
+    matchLabels:
+      app: mysql8
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql8
+    spec:
+      containers:
+      - name: mysql8
+        image: mysql:8.0.25
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 
+        volumeMounts:
+        - name: data-dir
+          mountPath: /var/lib/mysql
+        - name: conf-file
+          mountPath: /etc/mysql/conf.d
+            
+      volumes:
+        - name: data-dir
+          hostPath: 
+            path: /appdata/app/data/mysql
+            type: Directory
+        - name: conf-file
+          hostPath:
+            path: /appdata/app/compose/mysql/conf
+            type: Directory
+```
+
+# mysql service node port
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql8
+  namespace: todo
+  labels:
+    app: mysql8
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3306
+    targetPort: 3306
+    protocol: TCP
+    name: tcp
+  selector:
+    app: mysql8
+
+```

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  namespace: todo
+spec:
+  selector:
+    matchLabels:
+      app: auth
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: auth:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 40002
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE   
+        - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME   
+              
+        - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
+              
+        - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL
+              
+        - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL
+          valueFrom:
+            configMapKeyRef:
+              name: auth-configmap
+              key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL
+      

@@ -64,19 +64,5 @@ public class CustomReactiveAuthorizationManager implements ReactiveAuthorization
         }
 
         return Mono.just(new AuthorizationDecision(true));
-
-//        return authentication
-//                .filter(Authentication::isAuthenticated)
-//                .filter(a -> a instanceof JwtAuthenticationToken)
-//                .cast(JwtAuthenticationToken.class)
-//                .doOnNext(token -> {
-//                    System.out.println(token.getToken().getHeaders());
-//                    System.out.println(token.getTokenAttributes());
-//                })
-//                .flatMapIterable(AbstractAuthenticationToken::getAuthorities)
-//                .map(GrantedAuthority::getAuthority)
-//                .any(authority -> Objects.equals(authority, authorities))
-//                .map(AuthorizationDecision::new)
-//                .defaultIfEmpty(new AuthorizationDecision(false));
     }
 }
