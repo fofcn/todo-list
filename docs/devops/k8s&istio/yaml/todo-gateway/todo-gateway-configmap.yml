@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-configmap
+  namespace: todo
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-clusterip:40000/eureka/
