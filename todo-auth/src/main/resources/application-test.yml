@@ -55,20 +55,6 @@ spring:
     props:
       sql:
         show: true
-
-eureka:
-  instance:
-    preferIpAddress: true
-    instanceId: ${spring.cloud.client.ip-address}:${server.port}
-    hostname: ${spring.cloud.client.ip-address}
-    leaseRenewalIntervalInSeconds: 15
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:40000/eureka/
-    registryFetchIntervalSeconds: 1
-    refresh:
-      enable: true
-
   redis:
     database: 2
     host: 172.16.126.156

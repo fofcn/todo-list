@@ -25,5 +25,9 @@
         <module>common-web</module>
         <module>common-encryption</module>
         <module>common-domain</module>
+        <module>common-crawler</module>
+        <module>common-socket</module>
+        <module>common-debezium</module>
     </modules>
+
 </project>

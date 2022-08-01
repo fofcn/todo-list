@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout1").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .sessionManagement().disable();
     }
 
     @Bean

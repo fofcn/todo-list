@@ -1,4 +1,4 @@
-@startuml
+@startuml token and refresh token
 'https://plantuml.com/sequence-diagram
 
 autonumber
