@@ -11,7 +11,7 @@
 
 	<groupId>com.epam</groupId>
 	<artifactId>todo-list</artifactId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.0.5</version>
 	<packaging>pom</packaging>
 	<description>Backend for todo list application</description>
 
@@ -60,7 +60,7 @@
 		<connection>scm:git:git@github.com:fofcn/todo-list.git</connection>
 		<developerConnection>scm:git:git@github.com:fofcn/todo-list.git</developerConnection>
 		<url>https://github.com/fofcn/todo-list</url>
-		<tag>1.0.0</tag>
+		<tag>v1.0.5</tag>
 	</scm>
 
 	<dependencyManagement>
