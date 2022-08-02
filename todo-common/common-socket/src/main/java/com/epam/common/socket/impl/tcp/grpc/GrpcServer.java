@@ -3,6 +3,8 @@ package com.epam.common.socket.impl.tcp.grpc;
 import com.epam.common.socket.Connection;
 import com.epam.common.socket.ConnectionClosedEventListener;
 import com.epam.common.socket.SocketServer;
+import com.epam.common.socket.exception.ServerException;
+import com.epam.common.socket.exception.SocketException;
 import com.epam.common.socket.interceptor.RequestInterceptor;
 import com.epam.common.socket.processor.RequestProcessor;
 import com.epam.common.socket.processor.SocketContext;
@@ -24,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GrpcServer implements SocketServer {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(GrpcServer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GrpcServer.class);
 
     private static final String EXECUTOR_NAME = "grpc-default-executor";
 
@@ -71,7 +73,7 @@ public class GrpcServer implements SocketServer {
         try {
             this.server.start();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e);
         }
     }
 
@@ -90,6 +92,7 @@ public class GrpcServer implements SocketServer {
             this.defaultExecutor.awaitTermination(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             this.defaultExecutor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
 
         try {
@@ -97,6 +100,7 @@ public class GrpcServer implements SocketServer {
             this.server.awaitTermination(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             this.server.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -123,8 +127,8 @@ public class GrpcServer implements SocketServer {
                             try {
                                 responseObserver.onNext((Message) responseObj);
                                 responseObserver.onCompleted();
-                            } catch (final Throwable t) {
-                                LOGGER.warn("[GRPC] failed to send response.", t);
+                            } catch (final Exception e) {
+                                LOGGER.warn("[GRPC] failed to send response.", e);
                             }
                         }
 
@@ -167,7 +171,7 @@ public class GrpcServer implements SocketServer {
 
     @Override
     public void addRequestInterceptor(RequestInterceptor interceptor) {
-
+        // This interceptor register is not implemented for now.
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface SocketServer extends LifeCycle<Void> {
      * Add a user's request interceptor
      * @param interceptor request interceptor
      */
-    void addRequestInterceptor(final RequestInterceptor interceptor);
+    void addRequestInterceptor(final RequestInterceptor<?> interceptor);
 
     /**
      * Add a user's connection close listener

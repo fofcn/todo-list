@@ -28,6 +28,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class ManagedChannelHelper {
 
+    private ManagedChannelHelper() {}
+
     private static final Logger LOG = LoggerFactory.getLogger(ManagedChannelHelper.class);
 
     /**

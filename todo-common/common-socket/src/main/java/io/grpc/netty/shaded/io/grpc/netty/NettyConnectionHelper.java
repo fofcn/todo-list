@@ -34,6 +34,8 @@ import java.util.List;
  */
 public class NettyConnectionHelper {
 
+    private NettyConnectionHelper() {}
+
     private static final ReferenceFieldUpdater<NettyServerStream, Channel> CHANNEL_GETTER = Updaters
                                                                                               .newReferenceFieldUpdater(
                                                                                                   NettyServerStream.class,

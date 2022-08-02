@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class GrpcServerTest {
+class GrpcServerTest {
 
     private GrpcServer grpcServer;
 
@@ -36,14 +36,14 @@ public class GrpcServerTest {
 
     @Order(1000)
     @Test
-    public void testInit() {
+    void testInit() {
         boolean initResult = grpcServer.init(null);
         assertTrue(initResult);
     }
 
     @Order(999)
     @Test
-    public void testStart() {
+    void testStart() {
         grpcServer.init(null);
         grpcServer.start();
         assertTrue(grpcServer.isStarted());
@@ -51,6 +51,6 @@ public class GrpcServerTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             grpcServer.start();
         });
-        assertEquals(exception.getMessage(), "grpc server has started");
+        assertEquals("grpc server has started", exception.getMessage());
     }
 }

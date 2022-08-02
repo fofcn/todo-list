@@ -45,6 +45,8 @@ import java.nio.Buffer;
  */
 public class BufferUtils {
 
+    private BufferUtils() {}
+
     /**
      * @param buffer byteBuffer
      */

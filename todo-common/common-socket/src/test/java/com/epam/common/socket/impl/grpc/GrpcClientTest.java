@@ -45,7 +45,7 @@ public class GrpcClientTest {
 
     @Test
     @DisplayName("Testcase for sending sync normally")
-    public void testSendSyncNormal() {
+    void testSendSyncNormal() {
         SocketServer socketServer = createTestServer();
 
         // send message to grpc server
@@ -63,7 +63,7 @@ public class GrpcClientTest {
 
     @Test
     @DisplayName("Testcase for sending async normally")
-    public void testSendAsyncNormal() {
+    void testSendAsyncNormal() {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         SocketServer socketServer = createTestServer();
         HelloRequest request = HelloRequest.newBuilder().setHello("Hello").build();
@@ -96,7 +96,7 @@ public class GrpcClientTest {
     }
 
     @Test
-    public void testSendSyncException() {
+    void testSendSyncException() {
         HelloRequest request = HelloRequest.newBuilder().setHello("Hello").build();
         SocketException socketException = assertThrows(SocketException.class, () -> {
             grpcClient.sendSync(endpoint, request, 60000L);

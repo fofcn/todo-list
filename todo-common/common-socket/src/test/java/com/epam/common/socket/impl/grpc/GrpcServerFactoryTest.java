@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class GrpcServerFactoryTest {
+class GrpcServerFactoryTest {
     GrpcSocketFactory serverFactory = new GrpcSocketFactory();
 
     @BeforeEach
@@ -20,7 +20,7 @@ public class GrpcServerFactoryTest {
     }
 
     @Test
-    public void testNormalCreateSocketServer() {
+    void testNormalCreateSocketServer() {
         final Endpoint endpoint = new Endpoint("127.0.0.1", 65535);
         SocketServer grpcServer = serverFactory.createSocketServer(endpoint);
         assertNotNull(grpcServer);

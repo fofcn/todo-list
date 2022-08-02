@@ -1,13 +1,35 @@
 package com.epam.common.socket;
 
 import com.epam.common.socket.exception.SocketException;
-import com.epam.common.socket.exception.SocketTimeoutException;
 
 /**
  * socket client
  * The client capability is mainly to send data.
  */
 public interface SocketClient extends LifeCycle<SocketConfig> {
+
+    /**
+     * Check connection for given address.
+     *
+     * @param endpoint target address
+     * @return true if there is a connection and the connection is active and writable.
+     */
+    boolean checkConnection(final Endpoint endpoint);
+
+    /**
+     * Check connection for given address and async to create a new one if there is no connection.
+     * @param endpoint       target address
+     * @param createIfAbsent create a new one if there is no connection
+     * @return true if there is a connection and the connection is active and writable.
+     */
+    boolean checkConnection(final Endpoint endpoint, final boolean createIfAbsent);
+
+    /**
+     * Close all connections of a address.
+     *
+     * @param endpoint target address
+     */
+    void closeConnection(final Endpoint endpoint);
 
     /**
      * synchronous send an request

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GrpcSocketFactory {
-    private static final int RPC_MAX_INBOUND_MESSAGE_SIZE = SystemPropertyUtil.getInt(
+    static final int RPC_MAX_INBOUND_MESSAGE_SIZE = SystemPropertyUtil.getInt(
             "socket.grpc.max_inbound_message_size.bytes",
             4 * 1024 * 1024);
 
@@ -29,13 +29,11 @@ public class GrpcSocketFactory {
                 .directExecutor() //
                 .maxInboundMessageSize(RPC_MAX_INBOUND_MESSAGE_SIZE) //
                 .build();
-        final SocketServer rpcServer = new GrpcServer(server, handlerRegistry, this.parserClasses, this.responseMarshallers);
-        return rpcServer;
+        return new GrpcServer(server, handlerRegistry, this.parserClasses, this.responseMarshallers);
     }
 
     public SocketClient createRpcClient() {
-        final SocketClient rpcClient = new GrpcClient(this.parserClasses, responseMarshallers);
-        return rpcClient;
+        return new GrpcClient(this.parserClasses, responseMarshallers);
     }
 
     public void registerProtobufSerializer(final String className, final Object... args) {

@@ -5,6 +5,7 @@ import com.epam.common.socket.exception.SocketConnectException;
 import com.epam.common.socket.exception.SocketException;
 import com.epam.common.socket.exception.SocketTimeoutException;
 import com.epam.common.socket.util.DirectExecutor;
+import com.epam.common.socket.util.SystemPropertyUtil;
 import com.google.protobuf.Message;
 import io.grpc.*;
 import io.grpc.protobuf.ProtoUtils;
@@ -21,7 +22,7 @@ public class GrpcClient implements SocketClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcClient.class);
 
-    private static final int RESET_CONN_THRESHOLD = 2;
+    private static final int RESET_CONN_THRESHOLD = SystemPropertyUtil.getInt("socket..grpc.max.conn.failures.to_reset", 2);
 
     private final Map<Endpoint, ManagedChannel> managedChannelPool   = new ConcurrentHashMap<>();
 
@@ -58,6 +59,21 @@ public class GrpcClient implements SocketClient {
     }
 
     @Override
+    public boolean checkConnection(Endpoint endpoint) {
+        return checkConnection(endpoint, false);
+    }
+
+    @Override
+    public boolean checkConnection(Endpoint endpoint, boolean createIfAbsent) {
+        return checkChannel(endpoint, createIfAbsent);
+    }
+
+    @Override
+    public void closeConnection(Endpoint endpoint) {
+        closeChannel(endpoint);
+    }
+
+    @Override
     public Object sendSync(Endpoint endpoint, Object request, SendContext sendContext, long timeoutMillis) throws SocketException {
         final CompletableFuture<Object> future = new CompletableFuture<>();
 
@@ -76,7 +92,10 @@ public class GrpcClient implements SocketClient {
         } catch (final TimeoutException e) {
             future.cancel(true);
             throw new SocketTimeoutException(e);
-        } catch (final Throwable t) {
+        }catch (final InterruptedException e) {
+            future.cancel(true);
+            throw new SocketException(e);
+        } catch (final Exception t) {
             future.cancel(true);
             throw new SocketException(t);
         }
@@ -157,7 +176,7 @@ public class GrpcClient implements SocketClient {
         final ManagedChannel ch = ManagedChannelBuilder.forAddress(endpoint.getIp(), endpoint.getPort()) //
                 .usePlaintext() //
                 .directExecutor() //
-                .maxInboundMessageSize(4 * 1024 * 1024) //todo read this value from system properties
+                .maxInboundMessageSize(GrpcSocketFactory.RPC_MAX_INBOUND_MESSAGE_SIZE)
                 .build();
 
         LOGGER.info("Creating new channel to: {}.", endpoint);

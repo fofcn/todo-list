@@ -4,12 +4,15 @@ import com.epam.common.socket.grpc.HelloRequest;
 import com.epam.common.socket.impl.tcp.grpc.GrpcConfig;
 import org.junit.jupiter.api.Test;
 
-public class GrpcConfigTest {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class GrpcConfigTest {
 
     private GrpcConfig grpcConfig = new GrpcConfig();
 
     @Test
-    public void testNormalRegisterProtobufSerializer() {
+    void testNormalRegisterProtobufSerializer() {
         grpcConfig.registerProtobufSerializer(HelloRequest.class.getName(), HelloRequest.getDefaultInstance());
+        assertNotNull(grpcConfig);
     }
 }
