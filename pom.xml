@@ -50,7 +50,7 @@
 		<commons-crypto.version>1.1.0</commons-crypto.version>
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.12.0</commons-lang3.version>
-		<netty.version>4.0.36.Final</netty.version>
+		<netty.version>4.1.79.Final</netty.version>
 
 		<docker.image.prefix />
 		<dockerfile.skip>true</dockerfile.skip>
