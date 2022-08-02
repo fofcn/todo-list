@@ -21,5 +21,9 @@ public interface SocketServer extends LifeCycle<Void> {
      */
     void addRequestInterceptor(final RequestInterceptor interceptor);
 
-    void registerConnectionClosedEventListener(final ConnectionClosedEventListener listener);
+    /**
+     * Add a user's connection close listener
+     * @param listener
+     */
+    void addConnectionClosedEventListener(final ConnectionClosedEventListener listener);
 }

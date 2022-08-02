@@ -1,4 +1,4 @@
-package com.epam.todo.encrypto.digest;
+package com.epam.common.encrypto.digest;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ public class Md5Util {
             toBeEncode += salt;
         }
 
-        String md5Hex = md5Hex(plain, salt);
+        String md5Hex = md5Hex(toBeEncode, salt);
         return md5Hex.substring(8, 24);
     }
 }

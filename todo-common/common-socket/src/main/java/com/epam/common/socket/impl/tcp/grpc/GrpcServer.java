@@ -171,7 +171,7 @@ public class GrpcServer implements SocketServer {
     }
 
     @Override
-    public void registerConnectionClosedEventListener(final ConnectionClosedEventListener listener) {
+    public void addConnectionClosedEventListener(final ConnectionClosedEventListener listener) {
         this.closedEventListeners.add(listener);
     }
 }

@@ -1,15 +1,14 @@
-package com.epam.todo.encrypto.digest;
+package com.epam.common.encrypto.digest;
 
-import com.epam.todo.encrypto.digest.Md5Util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class Md5UtilTest {
+class Md5UtilTest {
 
     @Test
-    public void testNormalMd5Hex() {
+    void testNormalMd5Hex() {
         String plain = "abc";
         String salt = "abc";
         String encode1 = Md5Util.md5Hex(plain, salt);

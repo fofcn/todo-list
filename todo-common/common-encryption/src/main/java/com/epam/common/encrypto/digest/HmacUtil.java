@@ -1,4 +1,4 @@
-package com.epam.todo.encrypto.digest;
+package com.epam.common.encrypto.digest;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
