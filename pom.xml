@@ -51,6 +51,7 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.12.0</commons-lang3.version>
 		<netty.version>4.1.79.Final</netty.version>
+		<debezium-embedded.version>1.9.5.Final</debezium-embedded.version>
 
 		<docker.image.prefix />
 		<dockerfile.skip>true</dockerfile.skip>
@@ -211,6 +212,24 @@
 				<groupId>io.grpc</groupId>
 				<artifactId>grpc-stub</artifactId>
 				<version>${grpc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-api</artifactId>
+				<version>${debezium-embedded.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-embedded</artifactId>
+				<version>${debezium-embedded.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-mysql</artifactId>
+				<version>${debezium-embedded.version}</version>
 			</dependency>
 
 		</dependencies>
