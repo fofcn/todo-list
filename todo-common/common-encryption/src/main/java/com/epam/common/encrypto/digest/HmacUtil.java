@@ -50,7 +50,11 @@ public class HmacUtil {
 
     public static String hmac(String algorithm, String plain, String key) {
         if (StringUtils.isBlank(algorithm) || StringUtils.isBlank(plain) || StringUtils.isBlank(key)) {
-            return null;
+            throw new IllegalArgumentException("algorithm or plain text or key is blank.");
+        }
+
+        if (ALG_MD5.equals(algorithm) || ALG_SHA1.equals(algorithm)) {
+            throw new SecurityException("Cryptographic algorithm HmacMD5 and HmacSHA1 is weak and should not be used.");
         }
 
         // Get an hmac_sha1 key from the raw key bytes
