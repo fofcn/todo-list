@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class HMacDigestEncoder implements DigestEncoder {
 
+    public static final String PLAIN_TEXT_CAN_NOT_BE_NULL = "Plain text can not be null";
     private final String algorithm;
 
     private final SecretKey key;
@@ -42,7 +43,7 @@ public class HMacDigestEncoder implements DigestEncoder {
 
     @Override
     public String encode(String plain) {
-        Assert.isNotNull(Optional.of(plain), () -> new NullPointerException("Plain text can not be null"));
+        Assert.isNotNull(Optional.of(plain), () -> new NullPointerException(PLAIN_TEXT_CAN_NOT_BE_NULL));
 
         Mac mac = createMac(this.algorithm);
 
@@ -71,7 +72,7 @@ public class HMacDigestEncoder implements DigestEncoder {
 
     @Override
     public boolean matches(String plain, String encode) {
-        Assert.isNotEmpty(plain, () -> new NullPointerException("Plain text can not be null"));
+        Assert.isNotEmpty(plain, () -> new NullPointerException(PLAIN_TEXT_CAN_NOT_BE_NULL));
         Assert.isNotEmpty(encode, () -> new NullPointerException("Encoded text can not be null"));
         String newEncode = encode(plain);
         return newEncode.equals(encode);
@@ -79,7 +80,7 @@ public class HMacDigestEncoder implements DigestEncoder {
 
     @Override
     public boolean matches(String plain, String salt, String encode) {
-        Assert.isNotEmpty(plain, () -> new NullPointerException("Plain text can not be null"));
+        Assert.isNotEmpty(plain, () -> new NullPointerException(PLAIN_TEXT_CAN_NOT_BE_NULL));
         Assert.isNotEmpty(salt, () -> new NullPointerException("Salt text can not be null"));
         Assert.isNotEmpty(encode, () -> new NullPointerException("Encoded text can not be null"));
         String newEncode = encode(plain, salt);
