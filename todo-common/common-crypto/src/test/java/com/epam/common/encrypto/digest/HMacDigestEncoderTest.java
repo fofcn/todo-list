@@ -51,7 +51,7 @@ class HMacDigestEncoderTest {
     void testNoSuchAlgorithmException() {
         String str = RandomStringUtils.random(64);
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
-            DigestEncoder noSuchEncoder = new HMacDigestEncoder("UNKNOWN_DIGEST_ALGORITHM");
+            DigestEncoder noSuchEncoder = new HMacDigestEncoder("UNKNOWN_HMAC_ALGORITHM");
             noSuchEncoder.encode(str);
         });
 
