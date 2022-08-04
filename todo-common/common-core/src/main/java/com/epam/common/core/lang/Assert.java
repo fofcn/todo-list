@@ -45,6 +45,12 @@ public class Assert {
         }
     }
 
+    public static <E extends Throwable> void isNotEmpty(String str, Supplier<? extends E> supplier) throws E {
+        if (str == null || str.length() == 0) {
+            throw supplier.get();
+        }
+    }
+
     public static void checkBetween(String str, int min, int max) {
         if (str.length() < min && str.length() > max) {
             throw new TodoException(ResponseCode.PARAMETER_ERROR);
