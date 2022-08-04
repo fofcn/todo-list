@@ -15,4 +15,9 @@ public class MD5DigestEncoder implements DigestEncoder {
     public boolean matches(String plain, String encode) {
         return false;
     }
+
+    @Override
+    public boolean matches(String plain, String salt, String encode) {
+        return false;
+    }
 }

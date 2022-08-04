@@ -6,6 +6,8 @@ import com.epam.common.encrypto.symmetric.SymmetricCrypto;
 
 public final class CryptoFactory {
 
+    private CryptoFactory() {}
+
     public static DigestEncoder createDigestEncoder() {
         throw new UnsupportedOperationException();
     }

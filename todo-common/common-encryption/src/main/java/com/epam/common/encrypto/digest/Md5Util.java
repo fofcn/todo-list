@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Md5Util {
 
+    private Md5Util() {}
+
     public static String md5Hex(String plain, String salt) {
         String toBeEncode = plain;
         if (StringUtils.isNotEmpty(salt)) {

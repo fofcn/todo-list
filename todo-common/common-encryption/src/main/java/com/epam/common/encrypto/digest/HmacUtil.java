@@ -10,19 +10,22 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class HmacUtil {
-    public static String ALG_MD5 = "HmacMD5";
 
-    public static String ALG_SHA1 = "HmacSHA1";
+    private HmacUtil() {}
 
-    public static String ALG_SHA256 = "HmacSHA256";
+    public static final String ALG_MD5 = "HmacMD5";
 
-    public static String ALG_SHA384= "HmacSHA384";
+    public static final String ALG_SHA1 = "HmacSHA1";
 
-    public static String ALG_SHA512 = "HmacSHA512";
+    public static final String ALG_SHA256 = "HmacSHA256";
 
-    public static String ALG_SM3 = "HmacSM3";
+    public static final String ALG_SHA384= "HmacSHA384";
 
-    public static String ALG_SM4 = "SM4CMAC";
+    public static final String ALG_SHA512 = "HmacSHA512";
+
+    public static final String ALG_SM3 = "HmacSM3";
+
+    public static final String ALG_SM4 = "SM4CMAC";
 
     public static String hmacMD5(String plain, String key) {
         return hmac(ALG_MD5, plain, key);

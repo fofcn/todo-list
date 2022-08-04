@@ -1,4 +1,13 @@
 package com.epam.common.encrypto;
 
-public class CryptoFactoryTest {
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
+class CryptoFactoryTest {
+
+    @Test
+    void testIgnore() {
+        fail();
+    }
 }
