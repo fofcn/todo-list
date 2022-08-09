@@ -15,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 
@@ -74,5 +75,12 @@ public class GlobalExceptionHandler {
             msg.append(";");
         });
         return Response.buildFailure(ResponseCode.UNKNOWN_ERROR.getCode(), msg.toString());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public Response handleException(NoHandlerFoundException e) {
+        log.error("No handler found exception", e);
+        return Response.buildFailure(ResponseCode.HTTP_NOT_FOUND);
     }
 }

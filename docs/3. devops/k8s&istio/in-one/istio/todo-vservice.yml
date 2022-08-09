@@ -1,0 +1,44 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: auth-vservice
+  namespace: todo
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - todo-gateway
+  http:
+    - name: "auth-routes"
+      match:
+        - uri:
+            prefix: "/api/auth/"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: auth-clusterip
+            port:
+              number: 40002
+    - name: "usercenter-routes"
+      match:
+        - uri:
+            prefix: "/api/usercenter/"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: usercenter-clusterip
+            port:
+              number: 40003
+    - name: "task-routes"
+      match:
+        - uri:
+            prefix: "/api/task/"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: task-clusterip
+            port:
+              number: 40004

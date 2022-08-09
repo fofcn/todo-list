@@ -7,9 +7,11 @@ data:
   SPRING_PROFILES_ACTIVE: prod
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-clusterip:40000/eureka/
   SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME: username
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD: password
   SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME: username
-  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://mysql8:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD: password
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://10.0.8.3:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://10.0.8.3:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,11 +51,23 @@ spec:
                   name: usercenter-configmap
                   key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME
 
+            - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
+                valueFrom:
+                  configMapKeyRef:
+                    name: usercenter-configmap
+                    key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
+
             - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
               valueFrom:
                 configMapKeyRef:
                   name: usercenter-configmap
                   key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
+
+            - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
+                valueFrom:
+                  configMapKeyRef:
+                    name: usercenter-configmap
+                    key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
 
             - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL
               valueFrom:
@@ -77,9 +91,9 @@ metadata:
 spec:
   ports:
     - name: service0
-      port: 40002
+      port: 40003
       protocol: TCP
-      targetPort: 40002
+      targetPort: 40003
   selector:
     app: usercenter
   type: ClusterIP
