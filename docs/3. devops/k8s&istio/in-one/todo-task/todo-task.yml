@@ -5,12 +5,13 @@ metadata:
   namespace: todo
 data:
   SPRING_PROFILES_ACTIVE: prod
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-clusterip:40000/eureka/
   SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME: username
   SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD: password
   SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME: username
   SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD: password
-  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://10.0.8.3:3306/todo_task?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://10.0.8.3:3306/todo_task?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+  SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL: jdbc:mysql://10.0.8.3:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+  SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL: jdbc:mysql://10.0.8.3:3306/todo_auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,22 +50,12 @@ spec:
                 configMapKeyRef:
                   name: task-configmap
                   key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME
-            - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
-                valueFrom:
-                  configMapKeyRef:
-                    name: task-configmap
-                    key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
 
             - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
               valueFrom:
                 configMapKeyRef:
                   name: task-configmap
                   key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_USERNAME
-            - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
-                valueFrom:
-                  configMapKeyRef:
-                    name: task-configmap
-                    key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
 
             - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL
               valueFrom:
@@ -77,14 +68,24 @@ spec:
                 configMapKeyRef:
                   name: task-configmap
                   key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_URL
+            - name: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: task-configmap
+                  key: SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD
+            - name: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: task-configmap
+                  key: SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE0_PASSWORD
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  name: task-clusterip
+  namespace: todo
   labels:
     app: task
-    namespace: todo
-  name: task-clusterip
 spec:
   ports:
     - name: service0
