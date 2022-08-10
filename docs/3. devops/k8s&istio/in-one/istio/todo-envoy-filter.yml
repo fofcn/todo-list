@@ -1,0 +1,51 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: todo-auth-filter
+  namespace: todo
+spec:
+  workloadSelector:
+    labels:
+      app: task
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          portNumber: 40004
+          filterChain:
+            filter:
+              name: "envoy.filters.network.http_connection_manager"
+              subFilter:
+                name: "envoy.filters.http.router"
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.lua
+          typed_config:
+            "@type": "type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua"
+            inlineCode: |
+              -- Json Parsing based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
+              -- See modified script on https://gist.github.com/inaiat/02bf5d11732d8e4d7b7546399a3a49af
+              function envoy_on_request(request_handle)
+                request_handle:logInfo("envoy request: trying to get jwt token")
+                headers = request_handle:headers()
+                jwt = headers:get("Authorization")
+                request_handle:logWarn("envoy request: jwt is "..jwt)
+                if jwt == null then
+                  request_handle:logWarn("there is no jwt token");
+                else
+                  local jwt_without_type = jwt:sub(8)
+                  request_handle:logWarn("envoy request: jwt without type is "..jwt_without_type)
+                  local content = decode_jwt(jwt_without_type)
+                  local claims = content['claims'];
+                  if claims == nil then
+                    request_handle:logWarn("some problems to get jwt attributes"..jwt);
+                  else
+                    -- headers:add("payload", claims);
+                  end
+                end
+              end
+              
+              
+              
