@@ -34,3 +34,6 @@ public class BaseJpaEntity {
 }
  
 ```
+
+参考链接：
+1. [Unable to locate Attribute with the given name - Spring Data JPA Projections, Hibernate and BaseEntity](https://stackoverflow.com/questions/59453133/unable-to-locate-attribute-with-the-given-name-spring-data-jpa-projections-hi)
