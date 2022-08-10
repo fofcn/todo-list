@@ -1,4 +1,4 @@
-# ubuntu安装kubenetes
+# ubuntu 安装kubenetes
 sudo ufw disable
 
 # 安装selinux工具
@@ -59,7 +59,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 sudo apt update
 
 # 使用 apt-cache 命令查看支持的 Kubernetes 版本
-apt-cache madison kubectl | grep 1.23
+apt-cache madison kubectl | grep 1.16
 
 # 安装 k8s
 sudo apt-get install -y kubelet=1.23.8-00 kubeadm=1.23.8-00 kubectl=1.23.8-00
