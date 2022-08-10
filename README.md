@@ -169,3 +169,36 @@ src
     │       └───epam
     └───resources
 ```
+
+
+# 部署
+## 1. Jar包
+```shell
+git clone https://github.com/fofcn/todo-list.git
+cd todo-list
+mvn clean package
+```
+## 2. Docker
+```shell
+git clone https://github.com/fofcn/todo-list.git
+cd todo-list
+mvn clean package -Ddockerfile.skip=false
+
+# Startup services using docs/3. devops/docker/docker-compose.yml 
+```
+## 3. kubernetes
+```shell
+git clone https://github.com/fofcn/todo-list.git
+cd todo-list
+mvn clean package -Ddockerfile.skip=false
+
+# Startup services using docs/3. devops/k8s/yaml/in-one yaml files
+```
+## 4. kubernetes + Istio
+```shell
+git clone https://github.com/fofcn/todo-list.git
+cd todo-list
+mvn clean package -Ddockerfile.skip=false
+
+# Startup services using docs/3. devops/k8s&istio/yaml/in-one yaml files
+```
