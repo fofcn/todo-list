@@ -2,6 +2,7 @@ package com.epam.todo.auth.app.auth.executor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.epam.common.core.ResponseCode;
+import com.epam.common.core.constant.SecurityConstants;
 import com.epam.common.core.dto.SingleResponse;
 import com.epam.todo.auth.client.dto.cmd.AuthRefreshTokenCmd;
 import com.epam.todo.auth.client.dto.data.AuthRefreshTokenDTO;
@@ -34,8 +35,8 @@ public class AuthRefreshTokenCmdExec {
         parameters.add("client_secret", authConfig.getClientSecret());
         parameters.add("username", "");
         parameters.add("password", "");
-        parameters.add("grant_type", "refresh_token");
-;        parameters.add("refresh_token", cmd.getRefreshToken());
+        parameters.add("grant_type", SecurityConstants.OAUTH_REFRESH_TOKEN);
+;        parameters.add(SecurityConstants.OAUTH_REFRESH_TOKEN, cmd.getRefreshToken());
         parameters.add("remember-me", "1");
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, headers);
         restTemplate.setErrorHandler(new CustomRestResponseErrorHandler());
@@ -52,7 +53,7 @@ public class AuthRefreshTokenCmdExec {
 
         AuthRefreshTokenDTO dto = new AuthRefreshTokenDTO();
         dto.setAccessToken(result.getString("access_token"));
-        dto.setRefreshToken(result.getString("refresh_token"));
+        dto.setRefreshToken(result.getString(SecurityConstants.OAUTH_REFRESH_TOKEN));
         dto.setType(result.getString("token_type").substring(0, 1).toUpperCase() +
                 result.getString("token_type").substring(1));
         dto.setExpireIn(result.getInteger("expires_in"));
