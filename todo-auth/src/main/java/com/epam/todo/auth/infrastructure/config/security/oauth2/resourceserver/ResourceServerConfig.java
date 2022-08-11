@@ -106,7 +106,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         }
 
         byte[] content = new byte[contentLen];
-        is.read(content);
+        int realLen = is.read(content);
+        if (realLen <= 0) {
+            log.info("invalid public key file, There is no data in this file");
+            return null;
+        }
         String publicKeyData = new String(content, StandardCharsets.UTF_8);
         publicKeyData = publicKeyData.replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")
