@@ -54,7 +54,6 @@ class HMacDigestEncoderTest {
             DigestEncoder noSuchEncoder = new HMacDigestEncoder("UNKNOWN_HMAC_ALGORITHM");
             noSuchEncoder.encode(str);
         });
-
         assertNotNull(illegalArgumentException);
     }
 }
