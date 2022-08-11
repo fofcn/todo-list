@@ -8,6 +8,13 @@ import java.util.function.Supplier;
 
 public class Assert {
 
+    public static <E extends Throwable> void isNotNull(Object obj, Supplier<? extends E> supplier)
+            throws E {
+        if (obj == null) {
+            throw supplier.get();
+        }
+    }
+
     public static <E extends Throwable> void isNotNull(Optional<?> optional, Supplier<? extends E> supplier)
             throws E {
         if (optional == null || !optional.isPresent()) {
