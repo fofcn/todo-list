@@ -6,29 +6,29 @@ public class BcryptDigestEncoder implements DigestEncoder {
 
     @Override
     public String encode(String plain) {
-        Assert.isNotEmpty(plain, () -> new IllegalArgumentException());
+        Assert.isNotEmpty(plain, IllegalArgumentException::new);
         return BCrypt.hashpw(plain);
     }
 
     @Override
     public String encode(String plain, String salt) {
-        Assert.isNotEmpty(plain, () -> new IllegalArgumentException());
-        Assert.isNotEmpty(salt, () -> new IllegalArgumentException());
+        Assert.isNotEmpty(plain, IllegalArgumentException::new);
+        Assert.isNotEmpty(salt, IllegalArgumentException::new);
         return BCrypt.hashpw(plain, salt);
     }
 
     @Override
     public boolean matches(String plain, String encode) {
-        Assert.isNotEmpty(plain, () -> new IllegalArgumentException());
-        Assert.isNotEmpty(encode, () -> new IllegalArgumentException());
+        Assert.isNotEmpty(plain, IllegalArgumentException::new);
+        Assert.isNotEmpty(encode, IllegalArgumentException::new);
         return BCrypt.checkpw(plain, encode);
     }
 
     @Override
     public boolean matches(String plain, String salt, String encode) {
-        Assert.isNotEmpty(plain, () -> new IllegalArgumentException());
-        Assert.isNotEmpty(salt, () -> new IllegalArgumentException());
-        Assert.isNotEmpty(encode, () -> new IllegalArgumentException());
+        Assert.isNotEmpty(plain, IllegalArgumentException::new);
+        Assert.isNotEmpty(salt, IllegalArgumentException::new);
+        Assert.isNotEmpty(encode, IllegalArgumentException::new);
         return BCrypt.checkpw(plain, encode);
     }
 }
