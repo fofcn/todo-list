@@ -94,11 +94,14 @@ public class GrpcClient implements SocketClient {
             throw new SocketTimeoutException(e);
         }catch (final InterruptedException e) {
             future.cancel(true);
-            throw new SocketException(e);
+            LOGGER.error("Thread interrupted", e);
+            Thread.currentThread().interrupt();
         } catch (final Exception t) {
             future.cancel(true);
             throw new SocketException(t);
         }
+
+        return null;
     }
 
     @Override
