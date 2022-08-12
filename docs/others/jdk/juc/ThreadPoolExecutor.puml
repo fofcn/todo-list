@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+
+[*] --> RUNNING: 新建线程池
+RUNNING --> SHUTDOWN: 调用Shutdown()函数
+SHUTDOWN --> STOP: 调用ShutdownNow()函数
+SHUTDOWN --> TIDYING: 没有排队的任务和线程池没有线程
+STOP --> TIDYING: 线程池中的线程为空
+TIDYING --> TERMINATED: terminated函数执行完成
+@enduml

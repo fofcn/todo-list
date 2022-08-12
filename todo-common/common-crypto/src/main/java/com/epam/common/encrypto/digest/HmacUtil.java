@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-@Slf4j
 public class HmacUtil {
 
     private HmacUtil() {}
