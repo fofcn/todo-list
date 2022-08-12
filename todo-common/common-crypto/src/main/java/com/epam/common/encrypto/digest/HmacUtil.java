@@ -1,5 +1,6 @@
 package com.epam.common.encrypto.digest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+@Slf4j
 public class HmacUtil {
 
     private HmacUtil() {}
@@ -74,9 +76,9 @@ public class HmacUtil {
 
             //  Covert array of Hex bytes to a String
             return new String(hexBytes, StandardCharsets.UTF_8);
-        } catch (NoSuchAlgorithmException | InvalidKeyException ignore) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            return null;
         }
 
-        return null;
     }
 }
