@@ -1,8 +1,11 @@
 package com.epam.common.encrypto;
 
+import com.epam.common.core.lang.Assert;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -12,6 +15,19 @@ import java.security.SecureRandom;
 public class KeyUtil {
 
     private KeyUtil() {}
+
+    /**
+     * 生成 {@link SecretKey}，仅用于对称加密和摘要算法密钥生成
+     * 参考hutool
+     * @param algorithm 算法
+     * @param key       密钥，如果为{@code null} 自动生成随机密钥
+     * @return {@link SecretKey}
+     */
+    public static SecretKey generateKey(String algorithm, byte[] key) {
+        Assert.isNotEmpty(algorithm, () -> new IllegalArgumentException("Algorithm is blank"));
+        SecretKey secretKey = (null == key) ? generateKey(algorithm) : new SecretKeySpec(key, algorithm);
+        return secretKey;
+    }
 
     /**
      * Get algorithm's key genenrator
