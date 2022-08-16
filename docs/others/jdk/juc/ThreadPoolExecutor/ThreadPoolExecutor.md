@@ -31,6 +31,58 @@ AtomicInteger使用Int作为存储，Int有32位，ThreadPoolExecutor对ctl的32
 状态转换图：
 ![线程池状态转换图](../../../../asset/image/others/jdk/juc/ThreadPoolExecutor.png)
 
+# 线程池构造
+## 构造函数实现
+```java
+public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+    if (corePoolSize < 0 ||
+        maximumPoolSize <= 0 ||
+        maximumPoolSize < corePoolSize ||
+        keepAliveTime < 0)
+        throw new IllegalArgumentException();
+    if (workQueue == null || threadFactory == null || handler == null)
+        throw new NullPointerException();
+    this.corePoolSize = corePoolSize;
+    this.maximumPoolSize = maximumPoolSize;
+    this.workQueue = workQueue;
+    this.keepAliveTime = unit.toNanos(keepAliveTime);
+    this.threadFactory = threadFactory;
+    this.handler = handler;
+}
+```
+
+## 构造函数说明
+ThreadPoolExecutor构造函数的参数最多有7个参数，参数分别为：
+
+| #   | 参数名                               | 说明                                                                                             |
+|-----|-----------------------------------|------------------------------------------------------------------------------------------------|
+| 1   | int corePoolSize                  | 核心线程数， 线程池保留的最小线程数量，如果设置了allowCoreThreadTimeout，线程池会在空闲时销毁核心线程                                 |
+| 2   | int maximumPoolSize               | 最大线程数， 线程池允许的最大线程数，线程池达到corePoolSize设置的线程数量且workQueue已满，那么线程池会自动增加线程数量直到设置的maximumPoolSize设置的值 |
+| 3   | long keepAliveTime                | 当线程池的线程数量大于corePoolSize时， 从任务队列阻塞获取任务的最长时间，超过keepAliveTime设置的时间则认为可以销毁大于corePoolSize的线程        |
+| 4   | TimeUnit unit                     | keepAliveTime的时间单位                                                                             |
+| 5   | BlockingQueue<Runnable> workQueue | 任务队列                                                                                           |
+| 6   | ThreadFactory threadFactory       | 创建新线程的线程工厂                                                                                     |
+| 7   | RejectHandler handler             | 任务拒绝策略                                                                                         |
+
+
+## 拒绝策略
+拒绝策略是ThreadPoolExecutor无法执行任务且任务也无法排队时的处理策略，这种情况下ThreadPoolExecutor中的线程数量为maximumPoolSize且workQueue已满。
+ThreadPoolExecutor内置四种任务拒绝策略,也可以实现自定义的拒绝策略，实现自定义拒绝策略只需要实现RejectedExecutionHandler接口即可：
+
+| #   | 名称                  | 说明                                     |
+|-----|---------------------|----------------------------------------|
+| 1   | CallerRunsPolicy    | 调用者执行策略，就是谁向线程池提交任务谁执行该任务              |
+| 2   | AbortPolicy         | 直接抛出RejectedExecutionException         |
+| 3   | DiscardPolicy       | 不执行任务直接丢弃无通知，可以根据业务的容忍度使用              |
+| 4   | DiscardOldestPolicy | 丢弃workQueue队头的第一个任务并将该任务添加到workQueue队尾 |
+
+
 # 任务执行
 ## execute函数主逻辑
 ```java
