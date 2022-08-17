@@ -14,7 +14,6 @@ public class UidGeneratorConfig {
     @Resource
     private UidGeneratorProperties uidGeneratorProperties;
 
-
     @Bean
     public DisposableWorkerIdAssigner disposableWorkerIdAssigner() {
         return new DisposableWorkerIdAssigner();

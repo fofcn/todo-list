@@ -6,28 +6,25 @@ import com.xfvape.uid.utils.DockerUtils;
 import com.xfvape.uid.utils.NetUtils;
 import com.xfvape.uid.worker.WorkerIdAssigner;
 import com.xfvape.uid.worker.WorkerNodeType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
+@Slf4j
 public class DisposableWorkerIdAssigner implements WorkerIdAssigner {
-
-    private static final Logger logger = LoggerFactory.getLogger(DisposableWorkerIdAssigner.class);
 
     @Resource
     private WorkerNodeRepository workerNodeRepository;
-
 
     @Transactional(rollbackFor = Exception.class)
     @Override
     public long assignWorkerId() {
         WorkerNode workerNodeEntity = this.buildWorkerNode();
         this.workerNodeRepository.save(workerNodeEntity);
-        logger.info("Add worker node:" + workerNodeEntity);
+        log.info("Add worker node:" + workerNodeEntity);
         return workerNodeEntity.getId();
     }
 

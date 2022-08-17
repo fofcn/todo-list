@@ -2,7 +2,7 @@ package com.epam.todo.guid.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "fans.guid")
+@ConfigurationProperties(prefix = "todo.guid")
 public class UidGeneratorProperties {
 
     /**
