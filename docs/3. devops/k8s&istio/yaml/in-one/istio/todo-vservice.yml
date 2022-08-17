@@ -7,7 +7,7 @@ spec:
   hosts:
     - "*"
   gateways:
-    - todo-gateway
+    - auth-gateway
   http:
     - name: "auth-routes"
       match:
@@ -15,6 +15,11 @@ spec:
             prefix: "/api/auth/"
       rewrite:
         uri: "/"
+      match:
+        - uri:
+            prefix: "/api/auth"
+        rewrite:
+          uri: "/"
       route:
         - destination:
             host: auth-clusterip
@@ -26,6 +31,11 @@ spec:
             prefix: "/api/usercenter/"
       rewrite:
         uri: "/"
+      match:
+        - uri:
+            prefix: "/api/usercenter"
+        rewrite:
+          uri: "/"
       route:
         - destination:
             host: usercenter-clusterip
@@ -35,6 +45,11 @@ spec:
       match:
         - uri:
             prefix: "/api/task/"
+      rewrite:
+        uri: "/"
+      match:
+        - uri:
+            prefix: "/api/task"
       rewrite:
         uri: "/"
       route:
