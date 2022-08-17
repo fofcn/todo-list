@@ -49,12 +49,15 @@ public class TaskGatewayServiceImpl implements TaskGatewayService {
 
     @Override
     public void saveTask(TaskEntity taskEntity) {
+        Assert.isNotNull(taskEntity);
         Task task = taskEntityConverter.serialize(taskEntity);
         taskRepository.save(task);
     }
 
     @Override
     public TaskEntity findTask(Long userId, Long taskId) {
+        Assert.isNotNull(userId);
+        Assert.isNotNull(taskId);
         Task task = taskRepository.getById(taskId);
         Assert.isNotNull(task);
         Assert.isEquals(userId, task.getUserId());
@@ -63,9 +66,7 @@ public class TaskGatewayServiceImpl implements TaskGatewayService {
 
     @Override
     public void deleteTask(TaskEntity taskEntity) {
-        Task task = new Task();
-        task.setId(taskEntity.getId());
-        task.setDeleted(taskEntity.getDeleted().getCode());
+        Task task = taskEntityConverter.serialize(taskEntity);
         taskRepository.save(task);
     }
 
