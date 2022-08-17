@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.epam.todo.common.jpa.JpaConfig,\
   com.epam.todo.common.jpa.BaseJpaEntity
+
