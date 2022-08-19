@@ -286,6 +286,7 @@ public void shutdown() {
     mainLock.lock();
     try {
         checkShutdownAccess();
+        // 更新线程池状态为SHUTDOWN
         advanceRunState(SHUTDOWN);
         interruptIdleWorkers();
         onShutdown(); // hook for ScheduledThreadPoolExecutor
@@ -304,8 +305,13 @@ public List<Runnable> shutdownNow() {
     mainLock.lock();
     try {
         checkShutdownAccess();
+        // 更新线程池状态为STOP
         advanceRunState(STOP);
+        
+        // 中断所有的Worker
         interruptWorkers();
+        
+        // 清空队列中的任务
         tasks = drainQueue();
     } finally {
         mainLock.unlock();
@@ -324,6 +330,9 @@ public List<Runnable> shutdownNow() {
     mainLock.lock();
     try {
         for (;;) {
+            // 线程池状态值的关系：TERMINATED > TIDYING > STOP > SHUTDOWN > RUNNING。
+            // 一直重复检查线程池是否处于TERMINATED状态
+            // 只有调用了线程池的shutdown()和shutdownNow()
             if (runStateAtLeast(ctl.get(), TERMINATED))
                 return true;
             if (nanos <= 0)
