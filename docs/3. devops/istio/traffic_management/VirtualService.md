@@ -1,0 +1,2 @@
+# VirtualService
+VirtualService是路由规则，目的是流量到了以后如何应该选择哪个Service。
