@@ -29,7 +29,6 @@ public class KeyUtil {
 
     private KeyUtil() {}
 
-
     public static KeyPair generateKeyPair(String algorithm, int keySize, SecureRandom random, AlgorithmParameterSpec... params) {
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(algorithm);

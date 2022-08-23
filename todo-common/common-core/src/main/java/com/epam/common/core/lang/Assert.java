@@ -52,6 +52,7 @@ public class Assert {
         }
     }
 
+
     public static <E extends Throwable> void isNotEmpty(String str, Supplier<? extends E> supplier) throws E {
         if (str == null || str.length() == 0) {
             throw supplier.get();
@@ -61,6 +62,18 @@ public class Assert {
     public static void checkBetween(String str, int min, int max) {
         if (str.length() < min && str.length() > max) {
             throw new TodoException(ResponseCode.PARAMETER_ERROR);
+        }
+    }
+
+    public static <E extends Throwable> void checkBetween(String str, int min, int max, Supplier<? extends E> supplier) throws E {
+        if (str.length() < min && str.length() > max) {
+            throw supplier.get();
+        }
+    }
+
+    public static <E extends Throwable> void isTrue(boolean expression, Supplier<? extends E> supplier) throws E {
+        if (!expression) {
+            throw supplier.get();
         }
     }
 }
