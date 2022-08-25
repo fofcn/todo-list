@@ -67,6 +67,11 @@
             <version>1.0.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.epam</groupId>
+            <artifactId>common-crypto</artifactId>
+            <version>1.0.4</version>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

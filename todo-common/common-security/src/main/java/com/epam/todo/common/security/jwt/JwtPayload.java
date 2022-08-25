@@ -1,7 +1,5 @@
-package com.epam.todo.common.security.jwt.util;
+package com.epam.todo.common.security.jwt;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.epam.todo.common.security.constant.JwtConstants;
 import org.apache.commons.codec.binary.Base64;
 
@@ -15,8 +13,7 @@ public class JwtPayload extends Claims {
     public void parse(String payloadPart) {
         byte[] decode = Base64.decodeBase64(payloadPart.getBytes(StandardCharsets.UTF_8));
         String payloadJson = new String(decode, StandardCharsets.UTF_8);
-        JSONObject payloadJsonObj = JSON.parseObject(payloadJson);
-        setClaimJson(payloadJsonObj);
+        setClaimJson(payloadJson);
     }
 
     public LocalDateTime getExpireDate() {

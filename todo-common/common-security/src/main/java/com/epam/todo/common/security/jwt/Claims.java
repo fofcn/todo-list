@@ -1,5 +1,7 @@
-package com.epam.todo.common.security.jwt.util;
+package com.epam.todo.common.security.jwt;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
 public class Claims {
@@ -22,7 +24,15 @@ public class Claims {
         return claimJson.getLong(key);
     }
 
-    protected void setClaimJson(JSONObject jsonObject) {
-        this.claimJson = jsonObject;
+    protected void setClaimJson(String jsonStr) {
+        try {
+            this.claimJson = JSON.parseObject(jsonStr);
+        } catch (JSONException e) {
+            throw new JwtException(e);
+        }
+    }
+
+    protected JSONObject getClaimJson() {
+        return claimJson;
     }
 }

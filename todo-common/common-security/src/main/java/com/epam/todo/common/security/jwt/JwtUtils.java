@@ -1,4 +1,4 @@
-package com.epam.todo.common.security.jwt.util;
+package com.epam.todo.common.security.jwt;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -11,9 +11,11 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -27,9 +29,13 @@ public class JwtUtils {
     private JwtUtils() {}
 
     public static JSONObject getJwtPayload() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        Assert.isNotNull(requestAttributes, () -> new JwtException("Expect in a servlet context"));
+        HttpServletRequest httpServletRequest = ((ServletRequestAttributes)requestAttributes).getRequest();
+        Assert.isNotNull(httpServletRequest, () -> new JwtException("Expect in a servlet context"));
+
         JSONObject jsonObject = null;
-        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()
-                .getHeader(SecurityConstants.AUTHORIZATION_KEY);
+        String token = httpServletRequest.getHeader(SecurityConstants.AUTHORIZATION_KEY);
         Assert.isNotEmpty(token, () -> new TodoException(ResponseCode.AUTHORIZED_ERROR));
         Assert.isTrue(StringUtils.startsWithIgnoreCase(token, SecurityConstants.JWT_PREFIX),
                 () -> new TodoException(ResponseCode.AUTHORIZED_ERROR));
