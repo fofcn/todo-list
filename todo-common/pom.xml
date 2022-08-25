@@ -28,6 +28,7 @@
 <!--        <module>common-crawler</module>-->
         <module>common-socket</module>
         <module>common-debezium</module>
+        <module>common-security</module>
     </modules>
 
 </project>

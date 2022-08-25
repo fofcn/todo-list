@@ -1,6 +1,5 @@
 package com.epam.common.encrypto.digest;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,10 +22,6 @@ public class HmacUtil {
     public static final String ALG_SHA384= "HmacSHA384";
 
     public static final String ALG_SHA512 = "HmacSHA512";
-
-    public static final String ALG_SM3 = "HmacSM3";
-
-    public static final String ALG_SM4 = "SM4CMAC";
 
     public static String hmacMD5(String plain, String key) {
         return hmac(ALG_MD5, plain, key);

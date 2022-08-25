@@ -9,7 +9,6 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.Optional;
@@ -85,15 +84,6 @@ public class HMacDigestEncoder implements DigestEncoder {
         Assert.isNotEmpty(encode, () -> new NullPointerException("Encoded text can not be null"));
         String newEncode = encode(plain, salt);
         return newEncode.equals(encode);
-    }
-
-    private static MessageDigest createDigest(String algorithm) {
-        try {
-            return MessageDigest.getInstance(algorithm);
-        }
-        catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("No such hashing algorithm", e);
-        }
     }
 
     private Mac createMac(String algorithm) {
