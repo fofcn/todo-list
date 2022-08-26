@@ -1,6 +1,6 @@
 package com.epam.todo.common.security.jwt;
 
-import org.apache.commons.lang3.StringUtils;
+import com.epam.common.core.lang.Assert;
 
 import java.security.Key;
 import java.time.LocalDateTime;
@@ -54,6 +54,14 @@ public class Jwt {
         return isSignCorrect && isExpired;
     }
 
+    public JwtHeader getHeader() {
+        return this.header;
+    }
+
+    public JwtPayload getPayload() {
+        return this.payload;
+    }
+
     public boolean verifySign(Key key) {
         return jwtSigner.verify(tokenParts.get(0), tokenParts.get(1), tokenParts.get(2), key);
     }
@@ -65,9 +73,7 @@ public class Jwt {
     }
 
     private void parse(String token) {
-        if (StringUtils.isBlank(token)) {
-            return;
-        }
+        Assert.isNotEmpty(token, () -> new JwtException("Token should not null or empty"));
 
         splitToken(token);
         this.header.parse(this.tokenParts.get(0));
