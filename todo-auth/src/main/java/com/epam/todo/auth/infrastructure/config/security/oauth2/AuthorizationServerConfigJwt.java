@@ -3,8 +3,8 @@ package com.epam.todo.auth.infrastructure.config.security.oauth2;
 import com.alibaba.fastjson.JSON;
 import com.epam.common.core.ResponseCode;
 import com.epam.common.core.dto.Response;
-import com.epam.fans.auth.infrastructure.config.security.SecurityProperties;
 import com.epam.todo.auth.infrastructure.config.security.CustomUserDetails;
+import com.epam.todo.auth.infrastructure.config.security.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,12 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -35,7 +40,11 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.security.KeyPair;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 @EnableAuthorizationServer

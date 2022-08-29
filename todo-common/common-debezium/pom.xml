@@ -10,7 +10,7 @@
     <artifactId>common-debezium</artifactId>
     <name>common-debezium</name>
     <packaging>jar</packaging>
-    <url>https://git.epam.com/ford_ji/todo-list</url>
+    <url>https://github.com/fofcn/todo-list</url>
 
     <properties>
         <java.version>8</java.version>

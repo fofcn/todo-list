@@ -29,6 +29,7 @@
         <module>common-socket</module>
         <module>common-debezium</module>
         <module>common-security</module>
+        <module>common-file</module>
     </modules>
 
 </project>

@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common-log</artifactId>
     <packaging>jar</packaging>
-    <url>https://git.epam.com/ford_ji/todo-list</url>
+    <url>https://github.com/fofcn/todo-list</url>
 
     <dependencies>
         <dependency>

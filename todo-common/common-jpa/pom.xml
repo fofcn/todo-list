@@ -10,7 +10,7 @@
     <artifactId>common-jpa</artifactId>
     <name>common-jpa</name>
     <packaging>jar</packaging>
-    <url>https://git.epam.com/ford_ji/todo-list</url>
+    <url>https://github.com/fofcn/todo-list</url>
 
     <dependencies>
         <dependency>

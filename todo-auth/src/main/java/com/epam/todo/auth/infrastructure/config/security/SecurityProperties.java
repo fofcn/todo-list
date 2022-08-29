@@ -1,4 +1,4 @@
-package com.epam.fans.auth.infrastructure.config.security;
+package com.epam.todo.auth.infrastructure.config.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;

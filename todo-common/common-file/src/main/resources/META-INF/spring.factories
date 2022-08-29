@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.epam.common.file.controller.OsFileUploadController,\
+  com.epam.common.file.controller.QiniuFileUploadController,\
+  com.epam.common.file.service.impl.OsFileUploadServiceImpl,\
+  com.epam.common.file.service.impl.QiniuFileUploadServiceImpl
