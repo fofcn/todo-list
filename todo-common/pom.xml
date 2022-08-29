@@ -30,6 +30,7 @@
         <module>common-debezium</module>
         <module>common-security</module>
         <module>common-file</module>
+        <module>common-swagger</module>
     </modules>
 
 </project>
