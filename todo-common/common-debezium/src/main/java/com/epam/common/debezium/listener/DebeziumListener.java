@@ -44,7 +44,6 @@ public class DebeziumListener {
         log.info("Key = '{}' value = '{}'", sourceRecord.key(), sourceRecord.value());
 
         Struct sourceRecordChangeValue= (Struct) sourceRecord.value();
-
         if (sourceRecordChangeValue != null) {
             Envelope.Operation operation = Envelope.Operation.forCode((String) sourceRecordChangeValue.get(OPERATION));
 

@@ -31,6 +31,7 @@
         <module>common-security</module>
         <module>common-file</module>
         <module>common-swagger</module>
+        <module>common-test</module>
     </modules>
 
 </project>

@@ -17,7 +17,7 @@ public class DebeziumConnectorConfig {
     @Bean
     public io.debezium.config.Configuration customerConnector(DebeziumMysqlDataSourceProperties properties) throws IOException {
         File offsetStorageTempFile = File.createTempFile("offsets_", ".dat");
-        File dbHistoryTempFile = File.createTempFile("dbhistory_", ".dat");
+        File dbHistoryTempFile = File.createTempFile("db_history_", ".dat");
         return io.debezium.config.Configuration.create()
                 .with("name", "customer-mysql-connector")
                 .with("connector.class", "io.debezium.connector.mysql.MySqlConnector")
@@ -28,8 +28,11 @@ public class DebeziumConnectorConfig {
                 .with("database.port", properties.getPort())
                 .with("database.user", properties.getUsername())
                 .with("database.password", properties.getPassword())
-                .with("database.dbname", properties.getDatabase())
-                .with("database.include.list", properties.getDatabase())
+                .with("database.include.list", properties.getDatabaseIncludeList())
+//                .with("database.exclude.list", properties.getDatabaseExcludeList())
+                .with("table.include.list", properties.getTableIncludeList())
+//                .with("table.exclude.list", properties.getTableExcludeList())
+                .with("column.include.list", properties.getColumnIncludeList())
                 .with("include.schema.changes", "false")
                 .with("database.allowPublicKeyRetrieval", "true")
                 .with("database.server.id", "10181")
