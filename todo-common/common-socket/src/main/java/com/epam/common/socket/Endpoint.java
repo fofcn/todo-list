@@ -6,8 +6,6 @@ public class Endpoint {
 
     private int port;
 
-    private String address;
-
     public Endpoint(String ip, int port) {
         this.ip = ip;
         this.port = port;
@@ -27,10 +25,6 @@ public class Endpoint {
 
     @Override
     public String toString() {
-        return "Endpoint{" +
-                "ip='" + ip + '\'' +
-                ", port=" + port +
-                ", address='" + address + '\'' +
-                '}';
+        return getAddress();
     }
 }

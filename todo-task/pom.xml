@@ -14,20 +14,30 @@
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-web</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-core</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.epam</groupId>
             <artifactId>common-jpa</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.epam</groupId>-->
+<!--            <artifactId>common-swagger</artifactId>-->
+<!--            <version>1.0.4</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -9,7 +9,7 @@ debezium:
 
 spring:
   application:
-    name: auth
+    name: debezium
   shardingsphere:
     datasource:
       names: master,slave0

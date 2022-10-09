@@ -56,6 +56,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/token").permitAll()
                 .antMatchers(HttpMethod.POST, "/refreshToken").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/webjars/springfox-swagger-ui").permitAll()
+                .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling()
@@ -99,6 +104,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             log.error("invalid public key file, empty content");
             return null;
         }
+
         int contentLen = is.available();
         if (contentLen <= 0) {
             log.error("invalid public key file, empty content");
@@ -111,6 +117,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             log.info("invalid public key file, There is no data in this file");
             return null;
         }
+
         String publicKeyData = new String(content, StandardCharsets.UTF_8);
         publicKeyData = publicKeyData.replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")

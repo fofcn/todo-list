@@ -11,17 +11,21 @@ import com.epam.todo.task.client.dto.cmd.TaskUpdateStatusCmd;
 import com.epam.todo.task.client.dto.data.TaskListDTO;
 import com.epam.todo.task.client.dto.query.TaskListQuery;
 import com.epam.todo.task.domain.valueobject.DeleteEnum;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Tag(name = "Task Management")
 @RestController
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
+    @Operation(summary = "create new task")
     @PostMapping
     public Response createTask(@RequestBody @Valid TaskCreateCmd cmd) {
         cmd.setUserId(JwtUtils.getUserId());
