@@ -13,7 +13,7 @@ SELINUX=disabled
 sudo iptables -P FORWARD ACCEPT
 
 sudo vim /etc/rc.local
-/usr/sbin/iptables -P FORWARD ACCEPT
+sudo /usr/sbin/iptables -P FORWARD ACCEPT
 
 sudo sed -i 's/.*swap.*/#&/' /etc/fstab
 
@@ -24,9 +24,9 @@ net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 EOF
 
-modprobe br_netfilter
+sudo modprobe br_netfilter
 查看 ipv4 与 v6 配置是否生效
-sysctl --system
+sudo sysctl --system
 # 安装工具
 sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
 
@@ -59,7 +59,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 sudo apt update
 
 # 使用 apt-cache 命令查看支持的 Kubernetes 版本
-apt-cache madison kubectl | grep 1.23
+sudo apt-cache madison kubectl | grep 1.23
 
 # 安装 k8s
 sudo apt-get install -y kubelet=1.23.8-00 kubeadm=1.23.8-00 kubectl=1.23.8-00
