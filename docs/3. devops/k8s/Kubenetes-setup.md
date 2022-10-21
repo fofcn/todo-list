@@ -122,3 +122,7 @@ docker配置问题
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo systemctl start kubelet
+
+
+# memory pressure
+solution:  sudo systemctl restart kubelet
