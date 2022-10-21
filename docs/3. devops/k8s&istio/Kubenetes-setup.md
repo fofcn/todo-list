@@ -98,7 +98,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # 安装pod网络
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 
-# 腾讯云k8s集群加入命令
+# k8s集群加入命令
 kubeadm join 10.0.8.3:6443 --token ej8t5z.dbcua5lbwtjobiqp \
 --discovery-token-ca-cert-hash sha256:7001245096b3408bc09cd55a6fc2fd488d92fe621e8046c5c85bdb2fd7cc02fa
 
