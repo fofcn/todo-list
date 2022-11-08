@@ -13,12 +13,13 @@ SELINUX=disabled
 sudo iptables -P FORWARD ACCEPT
 
 sudo vim /etc/rc.local
+添加下行到文件中然后保存
 /usr/sbin/iptables -P FORWARD ACCEPT
 
 sudo sed -i 's/.*swap.*/#&/' /etc/fstab
 
 # 设置网络
-sudo tee /etc/sysctl.d/k8s.conf <<-'EOF'
+sudo tee /etc/sysctl.d/k8s.conf <<-'EOF' 
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
@@ -33,7 +34,7 @@ sudo apt-get install apt-transport-https ca-certificates curl software-propertie
 # 安装docker
 sudo apt-get install docker.io
 
-# docker daemon.json
+# docker daemon.json 可选
 sudo cat /etc/docker/daemon.json
 {
 "exec-opts": ["native.cgroupdriver=systemd"],
@@ -52,7 +53,7 @@ sudo cat /etc/docker/daemon.json
 sudo systemctl restart docker
 
 # 添加阿里云源
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
+sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 
 # 更新本地源
@@ -61,28 +62,29 @@ sudo apt update
 # 安装docker
 sudo apt install -y docker-ce
 
-# 安装docker-compose
+# 安装docker-compose(可选)
 sudo apt install -y docker-compose
 # 开机自启动docker
-systemctl enable docker
+sudo systemctl enable docker
 
-curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
+sudo curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
 
 # 添加APT源
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+sudo su -
+sudo cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
 EOF
 
-apt-get update
+sudo apt-get update
 
 # 查看k8s版本
-apt-cache madison kubelet
+sudo apt-cache madison kubelet
 
 # 使用 apt-cache 命令查看支持的 Kubernetes 版本
-sudo apt-cache madison kubectl | grep 1.16
+sudo apt-cache madison kubectl | grep 1.18.4-00
 
 # 安装指定版本k8s
-apt-get install -y kubelet=1.18.4-00 kubeadm=1.18.4-00 kubectl=1.18.4-00
+sudo apt-get install -y kubelet=1.18.4-00 kubeadm=1.18.4-00 kubectl=1.18.4-00
 
 # 设置开机启动
 sudo systemctl enable kubelet && sudo systemctl start kubelet
@@ -167,8 +169,8 @@ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 3. 重启 kubelet
 ```shell
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 3. Node一直处于NotReady状态
